@@ -1,13 +1,20 @@
 browser.runtime.onMessage.addListener((message: {
-    fromClassName?: string,
-    fromText?: string,
-    untilText?: string,
-    untilClassName?: string
+    fromText: string,
+    untilClassName: string
 }, sender, sendResponse) => {
+    const {removedElements, matchedElements} = removeElements(message);
+    sendResponse({success: true, removedElements, matchedElements});
+    return true;
+})
+
+interface RemoveElementsProps {
+    fromText: string
+    untilClassName: string
+}
+
+const removeElements = (message: RemoveElementsProps) => {
     const {
-        // fromClassName,
         fromText,
-        // untilText,
         untilClassName
     } = message;
 
@@ -18,7 +25,6 @@ browser.runtime.onMessage.addListener((message: {
 
     // from
     if (fromText) {
-        // TODO could now become more specific and target 'text' tags - p, span, h1-h6,i,b, etc
         const allElements = document.querySelectorAll('*');
         allElements.forEach((element) => {
             if (element.textContent.trim() === fromText) {
@@ -40,6 +46,5 @@ browser.runtime.onMessage.addListener((message: {
         })
     }
 
-    sendResponse({success: true, removedElements, matchedElements});
-    return true;
-})
+    return {removedElements, matchedElements};
+}

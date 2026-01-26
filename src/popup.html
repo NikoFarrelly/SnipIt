@@ -38,44 +38,14 @@
 <label class="fullWidth spacer" for="fromText">Text</label>
 <input class="fullWidth spacer" id="fromText" type="text" placeholder="text..."/>
 
-
-<!--TODO is traversal direction needed? always gonna find nested element, then propagate up-->
-<!--<fieldset class="radioSelection">-->
-<!--    <legend>Traversal direction</legend>-->
-<!--    <div class="">-->
-<!--        <input id="up" type="radio" value="up" name="traverse" checked/>-->
-<!--        <label for="up">Up</label>-->
-<!--    </div>-->
-
-<!--    <div class="">-->
-<!--        <input id="down" type="radio" value="down" name="traverse"/>-->
-<!--        <label for="down">down</label>-->
-<!--    </div>-->
-<!--</fieldset>-->
-
 <h5>Until elements matching:</h5>
-
-<!--<div>-->
-<!--    <label class="fullWidth spacer" for="untilText">Text</label>-->
-<!--    <input class="fullWidth spacer" id="untilText" type="text" placeholder="text..."/>-->
-<!--</div>-->
 <div>
     <label class="fullWidth spacer" for="untilClass">Class</label>
     <input class="fullWidth spacer" id="untilClass" type="text" placeholder="class..."/>
 </div>
 
-
-<!--<button class="spacer" type="button" id="checkBtn">Check</button>-->
-<!-- Display matches to the check -->
-<button class="spacer" type="button" id="submitBtn">Remove</button>
+<button class="spacer" title="Uh oh what" type="button" id="submitBtn">Remove</button>
 <p class="spacer">Removed elements: <i id="removedElements"></i></p>
-
-<!--TODO
-- add 'save for this page/domain'
-- which triggers without requiring a button click
-- can remove saved
-- if triggered will display an updated removed elements
- -->
 
 <script src="../dist/popup.js" defer type="module"></script>
 </body>
