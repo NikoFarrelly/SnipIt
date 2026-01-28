@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="addSnip.css">
+    <link rel="stylesheet" href="snippedElements.css">
     <meta charset="utf-8"/>
     <style>
         body {
-            font-family: sans-serif;
-            width: 250px;
-            padding: 10px;
-            overflow: hidden;
-        }
+            font-family: "Roboto Serif", sans-serif;
+            width: var(--content-width);
+            padding: 8px;
 
-        .spacer {
-            margin-bottom: 8px;
-        }
-
-        .fullWidth {
-            width: 100%;
         }
 
         label {
@@ -27,25 +22,192 @@
             margin: 8px 0;
         }
 
+        .container-spacing {
+            padding: 8px;
+        }
+
+        .container {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            background-color: var(--background);
+        }
+
+        .snipsOnThisPage {
+            border: solid 1px var(--border-secondary-500);
+            display: flex;
+            gap: 4px;
+            border-radius: 8px;
+        }
+
+        .snipCard {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 8px;
+        }
+
+        .snipText {
+            width: 160px;
+            padding-right: 8px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            p {
+                margin: 0;
+                padding: 0;
+                font-family: "Roboto Mono", sans-serif;
+            }
+        }
+
+        .snipURL {
+            font-family: "Roboto Serif", serif;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+        }
+
+        .snipBackgroundText {
+            color: var(--background-text);
+        }
+
+        .snipBackgroundTextAmount {
+            font-weight: bold;
+        }
+
+        .snipActions {
+            flex: 1;
+            margin: auto;
+            justify-content: space-evenly;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .snipAction {
+            margin: auto;
+            padding: 8px;
+            height: 100%;
+        }
+
+        .snipAction:hover {
+            background-color: var(--background-hover);
+            cursor: pointer;
+        }
+
+
     </style>
     <title>SnipIt</title>
 
 </head>
-<body>
-<h1>SnipIt</h1>
-
-<h5>From elements matching</h5>
-<label class="fullWidth spacer" for="fromText">Text</label>
-<input class="fullWidth spacer" id="fromText" type="text" placeholder="text..."/>
-
-<h5>Until elements matching:</h5>
-<div>
-    <label class="fullWidth spacer" for="untilClass">Class</label>
-    <input class="fullWidth spacer" id="untilClass" type="text" placeholder="class..."/>
+<body class="container">
+<div class="container-spacing">
+    <h1>SnipIt</h1>
 </div>
 
-<button class="spacer" title="Uh oh what" type="button" id="submitBtn">Remove</button>
-<p class="spacer">Removed elements: <i id="removedElements"></i></p>
+<!-- Snipped elements -->
+<div class="snippedElements">
+    <h6>Removed elements</h6>
+    <div class="snippedElementsContainer">
+        <div class="snippedElementsItem">
+            <p>on this page</p>
+            <p class="snippedPageAmount snippedAmount" id="snippedPageAmount">0</p>
+        </div>
+        <div class="snippedElementsItem">
+            <p>in total</p>
+            <p class="snippedTotalAmount snippedAmount" id="snippedTotalAmount">0</p>
+        </div>
+    </div>
+</div>
+<!-- EO Snipped elements -->
+
+<!-- Snips on this page -->
+<div class="snipsOnThisPage">
+
+    <div class="snipCard">
+        <div class="snipText">
+            <p class="snipURL">https://www.linkedin.com/jobs/38384484382/view/actions/id/29292</p>
+            <p class="snipBackgroundText">Runs on page load</p>
+            <p class="snipBackgroundText">Snipped <span class="snipBackgroundTextAmount">0</span></p>
+        </div>
+        <div class="snipActions">
+            <div role="button" class="snipAction">✂️</div>
+            <div role="button" class="snipAction">+</div>
+        </div>
+    </div>
+
+
+</div>
+<!-- EO Snips on this page -->
+
+<!--Add Snip -->
+<details class="accordion">
+    <summary class="accordionTitle">
+        Add Snip
+    </summary>
+    <div>
+        <div class="divider"></div>
+
+        <div class="container-spacing itemGap">
+            <h6>From element matching</h6>
+            <div class="inputContainer">
+                <label class="inputTitle" for="fromText">Text:</label>
+                <input id="fromText" type="text"/>
+            </div>
+        </div>
+
+
+        <div class="container-spacing itemGap">
+            <h6>Until element matching:</h6>
+            <div class="inputContainer">
+                <label class="inputTitle" for="untilClass">Class:</label>
+                <input class="input" id="untilClass" type="text"/>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="snipContainer">
+            <div class="snipContainerItems buttonContainer">
+                <button class="primaryButton" title="Uh oh what" type="button" id="snipBtn">
+                    Snip
+                </button>
+            </div>
+            <div class="snipContainerItems snipContainerInfo">
+                <p>snipped</p>
+                <p id="snippedAmount" class="snipContainerAmount">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="saveSnipContainer">
+        <h6>Save this Snip?</h6>
+        <div class="saveSnipInputs">
+            <div>
+                <label class="inputTitle" for="url">URL:</label>
+                <input class="fullWidth input" id="url" type="text"/>
+                <div class="urlInfo">
+                    <p>Matches path</p>
+                    <p>(* - wildcard)</p>
+                </div>
+            </div>
+            <div class="pageLoadContainer">
+                <label for="pageLoad">Run on page load:</label>
+                <div class="checkBoxContainer">
+                    <input id="pageLoad" type="checkbox"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="saveSnipButtonContainer">
+            <button class="primaryButton saveSnipButton">Save</button>
+        </div>
+    </div>
+</details>
+<!--EO addSnip -->
+
 
 <script src="../dist/popup.js" defer type="module"></script>
 </body>

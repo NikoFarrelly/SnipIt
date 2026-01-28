@@ -6,7 +6,7 @@ interface SubmitResponseProps {
 
 type SubmitResponse = null | SubmitResponseProps;
 
-document.getElementById("submitBtn")?.addEventListener("click", async () => {
+document.getElementById("snipBtn")?.addEventListener("click", async () => {
 
     const fromText = (document.getElementById("fromText") as HTMLInputElement).value;
     const untilClassName = (document.getElementById("untilClass") as HTMLInputElement).value;
@@ -20,9 +20,10 @@ document.getElementById("submitBtn")?.addEventListener("click", async () => {
         fromText,
         untilClassName
     })
+
     if (submit?.success) {
         const {removedElements} = submit;
-        const removedElementsDOM = document.getElementById("removedElements");
+        const removedElementsDOM = document.getElementById("snippedAmount");
         if (removedElementsDOM) {
             removedElementsDOM.innerText = `${removedElements}`;
         }
