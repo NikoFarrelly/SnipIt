@@ -27,7 +27,7 @@ const removeElements = (message: RemoveElementsProps) => {
     if (fromText) {
         const allElements = document.querySelectorAll('*');
         allElements.forEach((element) => {
-            if (element.textContent.trim() === fromText) {
+            if (element.textContent.toLowerCase().trim() === fromText.toLowerCase().trim()) {
                 removalElements.push(element);
                 matchedElements++;
 
@@ -38,7 +38,7 @@ const removeElements = (message: RemoveElementsProps) => {
     // until
     if (untilClassName) {
         removalElements.forEach((element: Element) => {
-            const untilElement = element.closest(`.${untilClassName}`);
+            const untilElement = element.closest(untilClassName);
             if (untilElement) {
                 untilElement.remove();
                 removedElements++;
@@ -48,3 +48,4 @@ const removeElements = (message: RemoveElementsProps) => {
 
     return {removedElements, matchedElements};
 }
+
