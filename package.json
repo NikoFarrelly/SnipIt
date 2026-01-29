@@ -5,7 +5,8 @@
   "author": "farrelly@thefarrelly.com",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "typescript": "tsc --noEmit"
   },
   "dependencies": {
     "webextension-polyfill": "^0.12.0"
