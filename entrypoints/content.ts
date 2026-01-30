@@ -1,11 +1,15 @@
-browser.runtime.onMessage.addListener((message: {
-    fromText: string,
-    untilClassName: string
-}, sender, sendResponse) => {
-    const {removedElements, matchedElements} = removeElements(message);
-    sendResponse({success: true, removedElements, matchedElements});
-    return true;
-})
+export default defineContentScript({
+    matches: ['<all_urls>'],
+
+    main() {
+        browser.runtime.onMessage.addListener(
+            function (request: RemoveElementsProps, _, sendResponse) {
+                const {removedElements, matchedElements} = removeElements(request as RemoveElementsProps);
+                sendResponse({success: true, removedElements, matchedElements});
+                return true;
+            })
+    },
+});
 
 interface RemoveElementsProps {
     fromText: string

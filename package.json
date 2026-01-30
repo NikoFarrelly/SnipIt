@@ -1,18 +1,24 @@
 {
-  "name": "SnipIt",
+  "name": "snipit",
   "version": "0.1.0",
-  "description": "Browser plugin to remove unwanted DOM elements",
+  "description": "Browser plugin to snip unwanted DOM elements",
   "author": "farrelly@thefarrelly.com",
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
-    "typescript": "tsc --noEmit"
+    "clean": "rm -rf .output .wxt",
+    "typescript": "tsc --noEmit",
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare"
   },
   "dependencies": {
-    "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
-    "@types/webextension-polyfill": "^0.12.4",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "wxt": "^0.20.6"
   }
 }

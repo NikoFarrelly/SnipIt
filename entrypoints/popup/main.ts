@@ -6,7 +6,7 @@ interface SubmitResponseProps {
 
 type SubmitResponse = null | SubmitResponseProps;
 
-let activeTab: browser.tabs.Tab;
+let activeTab: globalThis.Browser.tabs.Tab;
 
 const main = async () => {
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
@@ -123,7 +123,7 @@ export const getAllSnips = async (): Promise<Snip[]> => {
     for await (const key of keys) {
         const storedSnip = await browser.storage.local.get(key)
         if (storedSnip) {
-            const parsedData = JSON.parse(storedSnip[key])
+            const parsedData = JSON.parse(<string>storedSnip[key])
             if (parsedData) allSnips.push(parsedData);
         }
     }
