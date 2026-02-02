@@ -35,10 +35,14 @@ p, h5 {
 
 .snipCard {
     flex: 1;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.snipCardContent {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 8px;
 }
 
 .snipText {

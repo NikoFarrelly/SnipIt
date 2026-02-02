@@ -124,6 +124,22 @@ input {
     background-color: var(--button-primary-background-active);
 }
 
+.tertiaryButton {
+    background-color: var(--button-tertiary-background);
+    border-width: 0 0 3px 3px;
+    border-color: var(--button-tertiary-border);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    min-height: 36px;
+    max-height: 48px;
+    width: 100%;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    font-family: "Roboto Mono", sans-serif;
+    color: var(--text);
+}
+
 
 .divider {
     height: 1px;
@@ -183,6 +199,16 @@ input {
     justify-content: end;
 }
 
+.updateSnipButtonContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
 .saveSnipButton {
+    width: 35%;
+}
+
+.updateSnipButton {
     width: 35%;
 }

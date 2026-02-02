@@ -1,5 +1,16 @@
 import {Snip} from "@/src/types";
+import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
 
+export const addSnipsForURL = async (snips: Snip[]) => {
+    if (snips.length > 0) {
+        await snippedElementsSetup();
+        await addSnipCards(snips);
+    }
+}
+
+/**
+ * Setups up the container for snipped elements
+ */
 const snippedElementsSetup = async (): Promise<void> => {
     const snippedElementsContainer = document.getElementById("snipsOnThisPageContainer") as HTMLElement;
     snippedElementsContainer.className = "snippedElements";
@@ -15,27 +26,158 @@ const snippedElementsSetup = async (): Promise<void> => {
     snippedElementsContainer.appendChild(snipsOnThisPage);
 }
 
-export const addSnipsForURL = async (snips: Snip[]) => {
-    if (snips.length > 0) {
-        await snippedElementsSetup();
-        await addSnipCards(snips);
-    }
-}
-
+/**
+ * Adds all the snips to the DOM.
+ * @param snips
+ */
 const addSnipCards = async (snips: Snip[]): Promise<void> => {
     const container = document.getElementById("snipsOnThisPage") as HTMLElement;
     snips.forEach(snip => {
         const card = document.createElement("div");
         card.className = "snipCard";
-        card.innerHTML = ` <div class="snipText">
-                <p class="snipURL">${snip.url}</p>
-                <p class="snipBackgroundText">Runs on page load</p>
-                <p class="snipBackgroundText">Snipped <span class="snipBackgroundTextAmount">0</span></p>
-            </div>
-            <div class="snipActions">
-                <div role="button" class="snipAction">✂️</div>
-                <div role="button" class="snipAction">+</div>
+        card.id = snip.id;
+        card.innerHTML = ` 
+            <div class="snipCardContent">
+                <div class="snipText">
+                    <p class="snipURL">${snip.url}</p>
+                    <p class="snipBackgroundText">Runs on page load</p>
+                    <p class="snipBackgroundText">Snipped <span class="snipBackgroundTextAmount">0</span></p>
+                </div>
+                <div class="snipActions">
+                    <div role="button" class="snipAction">✂️</div>
+                    <div role="button" class="snipAction expandSnip" id="expandSnip">+</div>
+                </div>
             </div>`
+
+
+        const expandSnip = card.getElementsByClassName('expandSnip')[0] as HTMLElement;
+        expandSnip.addEventListener('click', async () => {
+            if (expandSnip.innerText === "+") {
+                expandSnip.innerText = "-"
+                await snipExpanded(snip);
+                // add update
+            } else {
+                expandSnip.innerText = "+"
+                await snipClosed(snip);
+            }
+        })
+
         container.appendChild(card)
     })
+}
+
+const snipClosed = async (snip: Snip): Promise<void> => {
+    const container = document.getElementById(snip.id + '-expanded') as HTMLElement;
+    container.remove();
+    const cardExpandSnip = document.getElementById('expandSnip');
+    if (cardExpandSnip) {
+        cardExpandSnip.innerText = "+"
+    }
+}
+
+const snipRemoved = async (snip: Snip): Promise<void> => {
+    await snipClosed(snip);
+
+    const container = document.getElementById(snip.id);
+    if (container) {
+        container.remove();
+    }
+}
+
+
+const snipExpanded = async (givenSnip: Snip): Promise<void> => {
+    const container = document.getElementById(givenSnip.id) as HTMLElement;
+    // get the latest snip value, as it may have changed from previous updates
+    const snip = await getSnipById(givenSnip.id);
+    if (!snip?.id) return;
+
+    const snipExpanded = document.createElement("div");
+    snipExpanded.id = snip.id + "-expanded";
+    snipExpanded.innerHTML = `
+        <div class="divider"></div>
+        <div class="container-spacing itemGap">
+            <h6>From element matching</h6>
+            <div class="inputContainer">
+                <label class="inputTitle" for="fromText">Text:</label>
+                <input id="fromText" type="text" value="${snip.fromText}"/>
+            </div>
+        </div>
+
+
+        <div class="container-spacing itemGap">
+            <h6>Until element matching:</h6>
+            <div class="inputContainer">
+                <label class="inputTitle" for="untilClass">Class:</label>
+                <input class="input" id="untilClass" type="text" value="${snip.untilClassName}"/>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="snipContainer">
+            <div class="snipContainerItems buttonContainer">
+                <button class="primaryButton" type="button" id="snipBtn">
+                    Snip
+                </button>
+            </div>
+            <div class="snipContainerItems snipContainerInfo">
+                <p>snipped</p>
+                <p id="snippedAmount" class="snipContainerAmount">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="saveSnipContainer">
+        <h6>Update this Snip?</h6>
+        <div class="saveSnipInputs">
+            <div class="inputContainer">
+                <label class="inputTitle" for="url">URL:</label>
+                <input class="input" id="url" type="text" value="${snip.url}"/>
+            </div>
+            <div class="urlInfo">
+                <p>Matches path</p>
+                <p>(* - wildcard)</p>
+            </div>
+            <div class="pageLoadContainer">
+                <label for="runOnPageLoad">Run on page load:</label>
+                <div class="checkBoxContainer">
+                    <input id="runOnPageLoad" type="checkbox" ${snip.runOnPageLoad && 'checked'}/>
+                </div>
+            </div>
+
+        </div>
+        <div class="updateSnipButtonContainer">
+            <button id="deleteBtn" class="tertiaryButton updateSnipButton">Delete</button>
+            <button id="updateBtn" class="primaryButton updateSnipButton">Update</button>
+        </div>
+        <div class="divider"></div>
+   `
+
+    const deleteButton = snipExpanded.querySelector('#deleteBtn') as HTMLElement;
+    deleteButton.addEventListener('click', async () => {
+        await deleteSnips(snip.id)
+        await snipRemoved(snip);
+    })
+
+    const updateButton = snipExpanded.querySelector('#updateBtn') as HTMLElement;
+    updateButton.addEventListener('click', async () => {
+
+        const fromText = (snipExpanded.querySelector('#fromText') as HTMLInputElement)?.value;
+        const untilClassName = (snipExpanded.querySelector('#untilClass') as HTMLInputElement)?.value;
+        const runOnPageLoad = (snipExpanded.querySelector('#runOnPageLoad') as HTMLInputElement)?.checked;
+        const url = (snipExpanded.querySelector('#url') as HTMLInputElement)?.value;
+
+        const updatedSnip: Snip = {
+            ...snip,
+            fromText,
+            untilClassName,
+            url,
+            runOnPageLoad,
+        }
+
+        await updateSnip(snip.id, updatedSnip)
+        await snipClosed(snip);
+    })
+
+    container.appendChild(snipExpanded);
 }

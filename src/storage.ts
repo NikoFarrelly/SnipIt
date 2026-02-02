@@ -1,4 +1,3 @@
-
 import {Snip} from "./types";
 
 export const getAllSnips = async (): Promise<Snip[]> => {
@@ -12,6 +11,14 @@ export const getAllSnips = async (): Promise<Snip[]> => {
         }
     }
     return allSnips;
+}
+
+export const getSnipById = async (id: string): Promise<Snip | null> => {
+
+    const storedSnip = await browser.storage.local.get(id)
+    if (storedSnip) return JSON.parse(<string>storedSnip[id]);
+
+    return null;
 }
 
 export const saveSnip = async (snip: Snip) => {
