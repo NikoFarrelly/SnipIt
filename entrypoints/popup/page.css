@@ -30,6 +30,7 @@ p, h5 {
     display: flex;
     gap: 4px;
     border-radius: 8px;
+    flex-direction: column;
 }
 
 .snipCard {

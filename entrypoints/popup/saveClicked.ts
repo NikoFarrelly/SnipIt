@@ -9,9 +9,9 @@ export const saveClicked = async () => {
     const untilClassName = (document.getElementById("untilClass") as HTMLInputElement).value;
     const url = (document.getElementById('url') as HTMLInputElement).value;
     const runOnPageLoad = (document.getElementById('runOnPageLoad') as HTMLInputElement).checked;
-
+    
     // TODO add validation
-    if (fromText && untilClassName && url && runOnPageLoad) {
+    if (fromText && untilClassName && url) {
         const snip = {
             id: generateUniqueID(),
             url: url,
