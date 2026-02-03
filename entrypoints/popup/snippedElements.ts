@@ -1,5 +1,6 @@
 import {Snip} from "@/src/types";
 import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
+import {cardSnip, snipClicked} from "@/entrypoints/popup/snipClicked";
 
 export const addSnipsForURL = async (snips: Snip[]) => {
     if (snips.length > 0) {
@@ -40,15 +41,17 @@ const addSnipCards = async (snips: Snip[]): Promise<void> => {
             <div class="snipCardContent">
                 <div class="snipText">
                     <p class="snipURL" id="snipURL">${snip.url}</p>
-                    <p class="snipBackgroundText">Runs on page load</p>
-                    <p class="snipBackgroundText">Snipped <span class="snipBackgroundTextAmount">0</span></p>
+                    <p class="snipBackgroundText">${snip.runOnPageLoad ? "Runs on page load" : "Runs on Snip"}</p>
+                    <p class="snipBackgroundText">Snipped <span id="${snip.id}-cardSnipAmount" class="snipBackgroundTextAmount">-</span></p>
                 </div>
                 <div class="snipActions">
-                    <button role="button" class="snipAction">✂️</button>
+                    <button role="button" class="snipAction snipBtn" id="snipBtn">✂️</button>
                     <button class="snipAction expandSnip" id="expandSnip">+</button>
                 </div>
             </div>`
 
+        const snipBtn = card.querySelector('#snipBtn');
+        if (snipBtn) snipBtn.addEventListener("click", async () => cardSnip({cardSnip: snip}));
 
         const expandSnip = card.getElementsByClassName('expandSnip')[0] as HTMLElement;
         expandSnip.addEventListener('click', async () => {
@@ -123,7 +126,7 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
             </div>
             <div class="snipContainerItems snipContainerInfo">
                 <p>snipped</p>
-                <p id="snippedAmount" class="snipContainerAmount">0</p>
+                <p id="${snip.id}-expandedSnipAmount" class="snipContainerAmount">-</p>
             </div>
         </div>
     </div>
@@ -153,6 +156,11 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
         </div>
         <div class="divider"></div>
    `
+
+    const snipBtn = snipExpanded.querySelector('#snipBtn');
+    if (snipBtn) snipBtn.addEventListener("click", async () => {
+        await cardSnip({cardSnip: snip});
+    })
 
     const deleteButton = snipExpanded.querySelector('#deleteBtn') as HTMLElement;
     deleteButton.addEventListener('click', async () => {

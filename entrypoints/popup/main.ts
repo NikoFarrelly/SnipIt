@@ -1,6 +1,6 @@
 import {getActiveTab, getSnipsForURL} from "../../src/utils";
 import {addSnipsForURL} from "@/entrypoints/popup/snippedElements";
-import {addSnip} from "@/entrypoints/popup/addSnip";
+import {addSnipElement} from "@/entrypoints/popup/addSnipElement";
 
 
 const main = async () => {
@@ -10,7 +10,7 @@ const main = async () => {
     const snipsForURL = await getSnipsForURL(activeTab.url);
     await addSnipsForURL(snipsForURL);
 
-    addSnip();
+    addSnipElement();
 }
 
 

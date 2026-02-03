@@ -1,14 +1,14 @@
 import {Snip} from "@/src/types";
-import {snipClicked} from "@/entrypoints/popup/snipClicked";
+import {addSnip} from "@/entrypoints/popup/snipClicked";
 
-export const addSnip = (snip?: Snip) => {
+export const addSnipElement = (snip?: Snip) => {
 
-    const addSnipContainer = document.getElementById('addSnipContainer');
+    const addSnipDetails = document.getElementById('addSnipDetails');
 
-    if (addSnipContainer) {
-        const addSnip = document.createElement("div");
-        addSnip.id = "addSnip"
-        addSnip.innerHTML = `
+    if (addSnipDetails) {
+        const addSnipContainer = document.createElement("div");
+        addSnipContainer.id = "addSnip"
+        addSnipContainer.innerHTML = `
     <div class="divider"></div>
 
     <div class="container-spacing itemGap">
@@ -38,22 +38,15 @@ export const addSnip = (snip?: Snip) => {
         </div>
         <div class="snipContainerItems snipContainerInfo">
             <p>snipped</p>
-            <p id="snippedAmount" class="snipContainerAmount">${snip?.snipAmount ?? '-'}</p>
+            <p id="${snip?.id ? snip.id + '-' : ''}addSnipAmount" class="snipContainerAmount">${snip?.snipAmount && snip.snipAmount > 0 ? snip.snipAmount : '-'}</p>
         </div>
     </div>
     <div class="divider"></div>
         `
 
-        const snipButton = addSnip.querySelector('#snipBtn');
-        if (snipButton) {
-            snipButton.addEventListener('click', snipClicked)
-        }
+        const snipButton = addSnipContainer.querySelector('#snipBtn');
+        if (snipButton) snipButton.addEventListener('click', addSnip)
 
-        addSnipContainer.appendChild(addSnip);
+        addSnipDetails.appendChild(addSnipContainer);
     }
 }
-
-
-// TODO snipBtn is disabled until from/until is fulfilled
-// TODO should I swap to using a form?
-// TODO need to set a format to functions which add an element, something like 'add{ElementName}', or '{elementName}Element'
