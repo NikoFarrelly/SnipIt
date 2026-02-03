@@ -1,7 +1,7 @@
 import {Snip} from "@/src/types";
 import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
 import {cardSnip, initSnip,} from "@/entrypoints/popup/snipClicked";
-import {updateOnThisPageSnips} from "@/entrypoints/popup/addRemovedElements";
+import {updateOnThisPageSnipsElement} from "@/entrypoints/popup/addRemovedElements";
 
 /**
  * Setups up the snipsOnThisPage element + snips for current URL which run on load.
@@ -12,7 +12,7 @@ export const addSnipsOnThisPage = async (snips: Snip[]) => {
         const snipsToRun = snips.filter(s => s.runOnPageLoad);
         let snipsOnThisPage:number = 0;
         for (const snip of snipsToRun) snipsOnThisPage += await initSnip({initSnip: snip});
-        updateOnThisPageSnips(snipsOnThisPage);
+        updateOnThisPageSnipsElement(snipsOnThisPage);
 
         await snippedElementsSetup();
         await addSnipCards(snips);

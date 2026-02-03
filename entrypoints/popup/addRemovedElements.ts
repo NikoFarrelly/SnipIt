@@ -1,4 +1,4 @@
-import {getGlobalState} from "@/src/storage";
+import {getGlobalState, updateSnipsAllTime} from "@/src/storage";
 
 export const addRemovedElements = async () => {
 
@@ -26,7 +26,16 @@ export const addRemovedElements = async () => {
     snippedElementsContainer.appendChild(snippedElements);
 }
 
-export const updateOnThisPageSnips = (snipsOnThisPageAmount: number): void => {
+/**
+ * Updates both the DOM and the global state.
+ * @param snippedElements
+ */
+export const updateAllTimeAndPageSnips = async (snippedElements: number): Promise<void> => {
+    await updateSnipsAllTime(snippedElements);
+    updateOnThisPageSnipsElement(snippedElements);
+}
+
+export const updateOnThisPageSnipsElement = (snipsOnThisPageAmount: number): void => {
     const amount = document.getElementById('snippedPageAmount');
     if (amount) amount.innerText = snipsOnThisPageAmount + '';
 }

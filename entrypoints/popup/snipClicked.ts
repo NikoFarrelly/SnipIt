@@ -1,7 +1,8 @@
 import {getActiveTab} from "../../src/utils";
 import {addSaveSnipElement} from "@/entrypoints/popup/addSaveSnipElement";
-import {updateSnipsAllTime, updateSnip} from "@/src/storage";
+import {updateSnip} from "@/src/storage";
 import {Snip} from "@/src/types";
+import {updateAllTimeAndPageSnips} from "@/entrypoints/popup/addRemovedElements";
 
 // TODO set states per success
 interface SubmitResponseProps {
@@ -63,15 +64,14 @@ export const addSnip = async () => {
     const untilClassName = (document.getElementById("untilClass") as HTMLInputElement).value;
 
     const res = await snip({fromText: fromText, untilClassName: untilClassName});
-    if (res?.success) {
+    // TODO add types for success
+    if (res?.success && res?.removedElements) {
         const saveSnipElement = document.getElementById('saveSnip');
         if (!saveSnipElement) await addSaveSnipElement(res.url)
 
         // update DOM
         const addSnipAmount = document.getElementById('addSnipAmount');
         if (addSnipAmount) addSnipAmount.innerText = res.removedElements + '';
-
-        // TODO update global snip values
     }
 }
 
@@ -87,7 +87,7 @@ const snip = async ({fromText, untilClassName}: {
         untilClassName
     })
 
-    if (submit?.success) await updateSnipsAllTime(submit.removedElements)
+    if (submit?.success) await updateAllTimeAndPageSnips(submit.removedElements)
 
     return {...submit, url: activeTab.url};
 }
