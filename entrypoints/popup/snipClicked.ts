@@ -1,5 +1,5 @@
 import {getActiveTab} from "../../src/utils";
-import {saveSnip} from "@/entrypoints/popup/saveSnip";
+import {addSaveSnipElement} from "@/entrypoints/popup/addSaveSnipElement";
 import {updateSnipsAllTime, updateSnip} from "@/src/storage";
 import {Snip} from "@/src/types";
 
@@ -64,7 +64,8 @@ export const addSnip = async () => {
 
     const res = await snip({fromText: fromText, untilClassName: untilClassName});
     if (res?.success) {
-        await saveSnip(res.url)
+        const saveSnipElement = document.getElementById('saveSnip');
+        if (!saveSnipElement) await addSaveSnipElement(res.url)
 
         // update DOM
         const addSnipAmount = document.getElementById('addSnipAmount');
