@@ -1,8 +1,8 @@
 import {Snip} from "@/src/types";
 import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
-import {cardSnip, snipClicked} from "@/entrypoints/popup/snipClicked";
+import {cardSnip,} from "@/entrypoints/popup/snipClicked";
 
-export const addSnipsForURL = async (snips: Snip[]) => {
+export const addSnipsOnThisPage = async (snips: Snip[]) => {
     if (snips.length > 0) {
         await snippedElementsSetup();
         await addSnipCards(snips);

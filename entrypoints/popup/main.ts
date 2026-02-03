@@ -1,20 +1,15 @@
 import {getActiveTab, getSnipsForURL} from "../../src/utils";
-import {addSnipsForURL} from "@/entrypoints/popup/snippedElements";
+import {addSnipsOnThisPage} from "@/entrypoints/popup/snippedElements";
 import {addSnipElement} from "@/entrypoints/popup/addSnipElement";
+import {addRemovedElements} from "@/entrypoints/popup/addRemovedElements";
 
-
-const main = async () => {
+const buildPopupUI = async () => {
     const activeTab = await getActiveTab();
     if (!activeTab || !activeTab?.url) return;
-    // await deleteAllSnips();
-    const snipsForURL = await getSnipsForURL(activeTab.url);
-    await addSnipsForURL(snipsForURL);
 
+    await addRemovedElements(activeTab.url);
+    await addSnipsOnThisPage(await getSnipsForURL(activeTab.url));
     addSnipElement();
 }
 
-
-main();
-
-
-
+buildPopupUI();
