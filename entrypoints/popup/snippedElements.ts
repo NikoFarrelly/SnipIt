@@ -33,19 +33,19 @@ const snippedElementsSetup = async (): Promise<void> => {
 const addSnipCards = async (snips: Snip[]): Promise<void> => {
     const container = document.getElementById("snipsOnThisPage") as HTMLElement;
     snips.forEach(snip => {
-        const card = document.createElement("div");
+        const card = document.createElement("article");
         card.className = "snipCard";
         card.id = snip.id;
         card.innerHTML = ` 
             <div class="snipCardContent">
                 <div class="snipText">
-                    <p class="snipURL">${snip.url}</p>
+                    <p class="snipURL" id="snipURL">${snip.url}</p>
                     <p class="snipBackgroundText">Runs on page load</p>
                     <p class="snipBackgroundText">Snipped <span class="snipBackgroundTextAmount">0</span></p>
                 </div>
                 <div class="snipActions">
-                    <div role="button" class="snipAction">✂️</div>
-                    <div role="button" class="snipAction expandSnip" id="expandSnip">+</div>
+                    <button role="button" class="snipAction">✂️</button>
+                    <button class="snipAction expandSnip" id="expandSnip">+</button>
                 </div>
             </div>`
 
@@ -67,8 +67,9 @@ const addSnipCards = async (snips: Snip[]): Promise<void> => {
 }
 
 const snipClosed = async (snip: Snip): Promise<void> => {
-    const container = document.getElementById(snip.id + '-expanded') as HTMLElement;
-    container.remove();
+    const expandedSnip = document.getElementById(snip.id + '-expanded');
+    if (expandedSnip) expandedSnip.remove();
+
     const cardExpandSnip = document.getElementById('expandSnip');
     if (cardExpandSnip) {
         cardExpandSnip.innerText = "+"

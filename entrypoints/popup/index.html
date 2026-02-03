@@ -35,68 +35,10 @@
 <div id="snipsOnThisPageContainer"></div>
 
 <!--Add Snip -->
-<details class="accordion">
+<details class="accordion" id="addSnipContainer">
     <summary class="accordionTitle">
         Add Snip
     </summary>
-    <div>
-        <div class="divider"></div>
-
-        <div class="container-spacing itemGap">
-            <h6>From element matching</h6>
-            <div class="inputContainer">
-                <label class="inputTitle" for="fromText">Text:</label>
-                <input id="fromText" type="text"/>
-            </div>
-        </div>
-
-
-        <div class="container-spacing itemGap">
-            <h6>Until element matching:</h6>
-            <div class="inputContainer">
-                <label class="inputTitle" for="untilClass">Class:</label>
-                <input class="input" id="untilClass" type="text"/>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="snipContainer">
-            <div class="snipContainerItems buttonContainer">
-                <button class="primaryButton" title="Uh oh what" type="button" id="snipBtn">
-                    Snip
-                </button>
-            </div>
-            <div class="snipContainerItems snipContainerInfo">
-                <p>snipped</p>
-                <p id="snippedAmount" class="snipContainerAmount">0</p>
-            </div>
-        </div>
-    </div>
-    <div class="divider"></div>
-    <div class="saveSnipContainer">
-        <h6>Save this Snip?</h6>
-        <div class="saveSnipInputs">
-            <div class="inputContainer">
-                <label class="inputTitle" for="url">URL:</label>
-                <input class="input" id="url" type="text"/>
-            </div>
-            <div class="urlInfo">
-                <p>Matches path</p>
-                <p>(* - wildcard)</p>
-            </div>
-            <div class="pageLoadContainer">
-                <label for="runOnPageLoad">Run on page load:</label>
-                <div class="checkBoxContainer">
-                    <input id="runOnPageLoad" type="checkbox" checked value="true"/>
-                </div>
-            </div>
-
-        </div>
-        <div class="saveSnipButtonContainer">
-            <button id="saveBtn" class="primaryButton saveSnipButton">Save</button>
-        </div>
-    </div>
 </details>
 <!--EO addSnip -->
 

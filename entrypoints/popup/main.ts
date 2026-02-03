@@ -1,8 +1,6 @@
 import {getActiveTab, getSnipsForURL} from "../../src/utils";
-import {snipClicked} from "./snipClicked";
-import {saveClicked} from "./saveClicked";
-import {Snip} from "@/src/types";
 import {addSnipsForURL} from "@/entrypoints/popup/snippedElements";
+import {addSnip} from "@/entrypoints/popup/addSnip";
 
 
 const main = async () => {
@@ -11,12 +9,12 @@ const main = async () => {
     // await deleteAllSnips();
     const snipsForURL = await getSnipsForURL(activeTab.url);
     await addSnipsForURL(snipsForURL);
+
+    addSnip();
 }
 
 
 main();
 
 
-document.getElementById("snipBtn")?.addEventListener("click", snipClicked)
 
-document.getElementById('saveBtn')?.addEventListener('click', saveClicked)

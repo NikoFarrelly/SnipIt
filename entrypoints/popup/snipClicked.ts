@@ -1,4 +1,5 @@
 import {getActiveTab} from "../../src/utils";
+import {saveSnip} from "@/entrypoints/popup/saveSnip";
 
 
 interface SubmitResponseProps {
@@ -22,8 +23,8 @@ export const snipClicked = async () => {
     })
 
     if (submit?.success) {
-        updateSnipAmounts(submit)
-        prefillURL(activeTab.url);
+        updateSnipAmounts(submit);
+        await saveSnip(activeTab.url)
     }
 }
 
@@ -32,12 +33,5 @@ const updateSnipAmounts = (submit: NonNullable<SubmitResponse>) => {
     const removedElementsDOM = document.getElementById("snippedAmount");
     if (removedElementsDOM) {
         removedElementsDOM.innerText = `${submit.removedElements}`;
-    }
-}
-
-const prefillURL = (url: string) => {
-    const urlInput = document.getElementById('url') as HTMLInputElement | null;
-    if (urlInput) {
-        urlInput.value = url;
     }
 }
