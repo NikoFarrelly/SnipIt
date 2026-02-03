@@ -1,13 +1,12 @@
-import {getSnipsForURL} from "@/src/utils";
-import {getAllSnips} from "@/src/storage";
+import {getGlobalState} from "@/src/storage";
 
-export const addRemovedElements = async (currentURL: string) => {
+export const addRemovedElements = async () => {
 
     const snippedElementsContainer = document.getElementById("snippedElements") as HTMLElement;
     snippedElementsContainer.className = "snippedElements";
 
-    const snipsOnThisPage = (await getSnipsForURL(currentURL)).filter(s => s.runOnPageLoad).reduce((acc, curr) => acc + curr.snipAmount, 0)
-    const snipsAllTime = (await getAllSnips()).reduce((acc, curr) => acc + curr.snipAmount, 0);
+    const {snipsAllTime} = await getGlobalState();
+    const snipsOnThisPage = '-'; // this is updated after init snips have run
 
     const snippedElements = document.createElement("div");
     snippedElements.innerHTML = `
@@ -31,7 +30,7 @@ export const updateOnThisPageSnips = (snipsOnThisPageAmount: number): void => {
     const amount = document.getElementById('snippedPageAmount');
     if (amount) amount.innerText = snipsOnThisPageAmount + '';
 }
-export const updateSnipsAllTime = (snipsAllTime: number): void => {
+export const updateSnipsAllTimeElement = (snipsAllTime: number): void => {
     const amount = document.getElementById('snippedTotalAmount');
     if (amount) amount.innerText = snipsAllTime + '';
 }

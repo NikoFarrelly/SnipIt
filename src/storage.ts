@@ -1,8 +1,10 @@
 import {Snip} from "./types";
+import {updateSnipsAllTimeElement} from "@/entrypoints/popup/addRemovedElements";
 
 export const getAllSnips = async (): Promise<Snip[]> => {
     const allSnips = [];
-    const keys = await browser.storage.local.getKeys()
+    const keys = (await browser.storage.local.getKeys()).filter(k => k !== GLOBAL_STATE_KEY)
+
     for await (const key of keys) {
         const storedSnip = await browser.storage.local.get(key)
         if (storedSnip) {
@@ -13,11 +15,41 @@ export const getAllSnips = async (): Promise<Snip[]> => {
     return allSnips;
 }
 
-export const getSnipById = async (id: string): Promise<Snip | null> => {
+const GLOBAL_STATE_KEY = 'globalState';
 
+interface GlobalState {
+    snipsAllTime: number;
+}
+
+export const getGlobalState = async (): Promise<GlobalState> => {
+    const storedGlobalState = await browser.storage.local.get(GLOBAL_STATE_KEY);
+    if (storedGlobalState?.[GLOBAL_STATE_KEY]) return storedGlobalState[GLOBAL_STATE_KEY] as GlobalState;
+
+    const initGlobalState: GlobalState = {
+        snipsAllTime: 0,
+    }
+    return initGlobalState;
+}
+
+export const setGlobalState = async (updatedGlobalState: GlobalState) => {
+    const globalStateToSave = {[GLOBAL_STATE_KEY]: updatedGlobalState};
+    await browser.storage.local.set(globalStateToSave);
+}
+
+export const updateSnipsAllTime = async (snippedElements: number): Promise<void> => {
+    const currGlobalState = await getGlobalState();
+    const updatedSnipsAllTime = currGlobalState.snipsAllTime + snippedElements
+    const updatedGlobalState = {
+        ...currGlobalState,
+        snipsAllTime: currGlobalState.snipsAllTime + snippedElements,
+    }
+    await setGlobalState(updatedGlobalState);
+    updateSnipsAllTimeElement(updatedSnipsAllTime);
+}
+
+export const getSnipById = async (id: string): Promise<Snip | null> => {
     const storedSnip = await browser.storage.local.get(id)
     if (storedSnip) return JSON.parse(<string>storedSnip[id]);
-
     return null;
 }
 

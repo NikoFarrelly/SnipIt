@@ -1,9 +1,19 @@
 import {Snip} from "@/src/types";
 import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
-import {cardSnip,} from "@/entrypoints/popup/snipClicked";
+import {cardSnip, initSnip,} from "@/entrypoints/popup/snipClicked";
+import {updateOnThisPageSnips} from "@/entrypoints/popup/addRemovedElements";
 
+/**
+ * Setups up the snipsOnThisPage element + snips for current URL which run on load.
+ * @param snips
+ */
 export const addSnipsOnThisPage = async (snips: Snip[]) => {
     if (snips.length > 0) {
+        const snipsToRun = snips.filter(s => s.runOnPageLoad);
+        let snipsOnThisPage:number = 0;
+        for (const snip of snipsToRun) snipsOnThisPage += await initSnip({initSnip: snip});
+        updateOnThisPageSnips(snipsOnThisPage);
+
         await snippedElementsSetup();
         await addSnipCards(snips);
     }
@@ -42,7 +52,7 @@ const addSnipCards = async (snips: Snip[]): Promise<void> => {
                 <div class="snipText">
                     <p class="snipURL" id="snipURL">${snip.url}</p>
                     <p class="snipBackgroundText">${snip.runOnPageLoad ? "Runs on page load" : "Runs on Snip"}</p>
-                    <p class="snipBackgroundText">Snipped <span id="${snip.id}-cardSnipAmount" class="snipBackgroundTextAmount">-</span></p>
+                    <p class="snipBackgroundText">Snipped <span id="${snip.id}-cardSnipAmount" class="snipBackgroundTextAmount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</span></p>
                 </div>
                 <div class="snipActions">
                     <button role="button" class="snipAction snipBtn" id="snipBtn">✂️</button>
@@ -58,7 +68,6 @@ const addSnipCards = async (snips: Snip[]): Promise<void> => {
             if (expandSnip.innerText === "+") {
                 expandSnip.innerText = "-"
                 await snipExpanded(snip);
-                // add update
             } else {
                 expandSnip.innerText = "+"
                 await snipClosed(snip);
@@ -126,7 +135,7 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
             </div>
             <div class="snipContainerItems snipContainerInfo">
                 <p>snipped</p>
-                <p id="${snip.id}-expandedSnipAmount" class="snipContainerAmount">-</p>
+                <p id="${snip.id}-expandedSnipAmount" class="snipContainerAmount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</p>
             </div>
         </div>
     </div>

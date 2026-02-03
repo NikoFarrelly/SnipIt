@@ -7,7 +7,7 @@ const buildPopupUI = async () => {
     const activeTab = await getActiveTab();
     if (!activeTab || !activeTab?.url) return;
 
-    await addRemovedElements(activeTab.url);
+    await addRemovedElements();
     await addSnipsOnThisPage(await getSnipsForURL(activeTab.url));
     addSnipElement();
 }

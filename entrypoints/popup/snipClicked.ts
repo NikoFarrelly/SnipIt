@@ -1,6 +1,6 @@
 import {getActiveTab} from "../../src/utils";
 import {saveSnip} from "@/entrypoints/popup/saveSnip";
-import {updateSnip} from "@/src/storage";
+import {updateSnipsAllTime, updateSnip} from "@/src/storage";
 import {Snip} from "@/src/types";
 
 // TODO set states per success
@@ -12,6 +12,27 @@ interface SubmitResponseProps {
 
 type SubmitResponse = null | SubmitResponseProps;
 
+/**
+ * Executes snip which run on load.
+ * Takes the snip to run.
+ * @param initSnip
+ *
+ * Returns the number of removed elements.
+ * @return number
+ */
+export const initSnip = async ({initSnip}: { initSnip: Snip }): Promise<number> => {
+    const res = await snip({fromText: initSnip.fromText, untilClassName: initSnip.untilClassName})
+    if (res?.success && res?.removedElements) {
+        const updatedSnip = {
+            ...initSnip,
+            removedElements: initSnip.snipAmount + res.removedElements,
+            currentPageSnipAmount: res.removedElements,
+        }
+        await updateSnip(initSnip.id, updatedSnip)
+        return res.removedElements;
+    }
+    return 0;
+}
 
 // handles snipCard & expandedSnip
 export const cardSnip = async ({cardSnip}: { cardSnip: Snip }): Promise<void> => {
@@ -20,7 +41,8 @@ export const cardSnip = async ({cardSnip}: { cardSnip: Snip }): Promise<void> =>
     if (res?.success && res?.removedElements) {
         const updatedSnip: Snip = {
             ...cardSnip,
-            snipAmount: cardSnip.snipAmount + res.removedElements
+            snipAmount: cardSnip.snipAmount + res.removedElements,
+            currentPageSnipAmount: res.removedElements,
         }
         await updateSnip(cardSnip.id, updatedSnip)
 
@@ -63,6 +85,8 @@ const snip = async ({fromText, untilClassName}: {
         fromText,
         untilClassName
     })
+
+    if (submit?.success) await updateSnipsAllTime(submit.removedElements)
 
     return {...submit, url: activeTab.url};
 }

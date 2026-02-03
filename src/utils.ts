@@ -1,5 +1,3 @@
-// utils
-
 import {getAllSnips} from "./storage";
 import {Snip} from "./types";
 
