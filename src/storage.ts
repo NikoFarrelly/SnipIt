@@ -4,7 +4,6 @@ import {updateSnipsAllTimeElement} from "@/entrypoints/popup/addRemovedElements"
 export const getAllSnips = async (): Promise<Snip[]> => {
     const allSnips = [];
     const keys = (await browser.storage.local.getKeys()).filter(k => k !== GLOBAL_STATE_KEY)
-
     for await (const key of keys) {
         const storedSnip = await browser.storage.local.get(key)
         if (storedSnip) {

@@ -1,55 +1,52 @@
+import {FireSnipOnClickAction, Snip} from "@/src/types";
+import {removeElements} from "@/entrypoints/content/removeElements";
+import {getSnipsForURL} from "@/src/utils";
+import {updateSnip, updateSnipsAllTime} from "@/src/storage";
+
 export default defineContentScript({
+    runAt: 'document_idle',
     matches: ['<all_urls>'],
-
+    world: 'ISOLATED',
     main() {
+
+        // fire snips on load
+        browser.runtime.sendMessage({
+            action: 'fireSnipForTab',
+        }, async (response: { success: boolean, tab: globalThis.Browser.tabs.Tab }) => {
+            if (response?.success && response?.tab?.active && response?.tab?.url) {
+                const snipsOnLoad = await getSnipsForURL(response.tab.url);
+                for (const snip of snipsOnLoad) {
+                    const {removedElements} = removeElements({
+                        fromText: snip.fromText,
+                        untilClassName: snip.untilClassName
+                    });
+                    if (removedElements > 0) {
+                        const updatedSnip: Snip = {
+                            ...snip,
+                            snipAmount: snip.snipAmount + removedElements,
+                            currentPageSnipAmount: removedElements,
+                        }
+                        await Promise.all([updateSnip(snip.id, updatedSnip), updateSnipsAllTime(removedElements)])
+                    }
+                }
+            }
+        })
+
+        // Run intentionally via click
         browser.runtime.onMessage.addListener(
-            function (request: RemoveElementsProps, _, sendResponse) {
-                const {removedElements, matchedElements} = removeElements(request as RemoveElementsProps);
-                sendResponse({success: true, removedElements, matchedElements});
-                return true;
+            function (request: FireSnipOnClickAction, _, sendResponse) {
+                if (request.action === 'fireSnipOnClick') {
+                    if (!request?.fromText || !request?.untilClassName) return sendResponse({
+                        error: 'No props given to remove elements.',
+                        success: false
+                    })
+                    const {fromText, untilClassName} = request;
+                    const {removedElements, matchedElements} = removeElements({fromText, untilClassName});
+
+                    sendResponse({success: true, removedElements, matchedElements});
+                    return true;
+                }
             })
-    },
-});
 
-interface RemoveElementsProps {
-    fromText: string
-    untilClassName: string
-}
-
-const removeElements = (message: RemoveElementsProps) => {
-    const {
-        fromText,
-        untilClassName
-    } = message;
-
-    let matchedElements = 0;
-    let removedElements = 0;
-
-    const removalElements: Element[] = [];
-
-    // from
-    if (fromText) {
-        const allElements = document.querySelectorAll('*');
-        allElements.forEach((element) => {
-            if (element.textContent.toLowerCase().trim() === fromText.toLowerCase().trim()) {
-                removalElements.push(element);
-                matchedElements++;
-
-            }
-        })
     }
-
-    // until
-    if (untilClassName) {
-        removalElements.forEach((element: Element) => {
-            const untilElement = element.closest(untilClassName);
-            if (untilElement) {
-                untilElement.remove();
-                removedElements++;
-            }
-        })
-    }
-
-    return {removedElements, matchedElements};
-}
-
+})

@@ -1,3 +1,5 @@
+import {RemoveElementsProps} from "@/entrypoints/content/removeElements";
+
 export type Snip = {
     url: string;
     runOnPageLoad: boolean;
@@ -11,3 +13,7 @@ export type Snip = {
 export type StoredSnip = {
     [id: string]: Snip
 };
+
+export interface FireSnipOnClickAction extends RemoveElementsProps {
+    action: 'fireSnipOnClick',
+}

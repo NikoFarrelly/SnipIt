@@ -83,6 +83,7 @@ const snip = async ({fromText, untilClassName}: {
     if (!activeTab?.url || !activeTab?.id) return;
 
     const submit: SubmitResponse = await browser.tabs.sendMessage(activeTab.id, {
+        action: 'fireSnipOnClick',
         fromText,
         untilClassName
     })
