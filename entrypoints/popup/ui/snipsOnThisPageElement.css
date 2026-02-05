@@ -1,0 +1,67 @@
+.snips-on-this-page {
+    border: solid 1px var(--border-secondary-500);
+    display: flex;
+    gap: 4px;
+    border-radius: 8px;
+    flex-direction: column;
+}
+
+.snips-on-this-page__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content__snip-text {
+    width: 160px;
+    padding-right: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        margin: 0;
+        padding: 0;
+        font-family: "Roboto Mono", sans-serif;
+    }
+}
+
+.snip-text__URL {
+    font-family: "Roboto Serif", serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.snip-text--background-text {
+    color: var(--background-text);
+}
+
+.background-text__amount {
+    font-weight: bold;
+}
+
+.content__snip-actions {
+    flex: 1;
+    margin: auto;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+}
+
+.snip-actions__action {
+    margin: auto;
+    padding: 8px;
+    height: 100%;
+}
+
+.snip-actions__action:hover {
+    background-color: var(--background-hover);
+    cursor: pointer;
+}
+
+.snip-card {
+    flex: 1;
+    flex-direction: column;
+    padding: 8px;
+}
