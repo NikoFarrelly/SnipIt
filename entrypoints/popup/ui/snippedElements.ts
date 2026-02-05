@@ -134,18 +134,18 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
         </div>
     </div>
     <div class="divider"></div>
-    <div class="saveSnipContainer">
+    <div class="save-snip">
         <h6>Update this Snip?</h6>
-        <div class="saveSnipInputs">
+        <div class="save-snip__inputs">
             <div class="text-input">
                 <label class="text-input__title" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip.url}"/>
             </div>
-            <div class="urlInfo">
+            <div class="url-info">
                 <p>Matches path</p>
                 <p>(* - wildcard)</p>
             </div>
-            <div class="pageLoadContainer">
+            <div class="page-load">
                 <label for="runOnPageLoad">Run on page load:</label>
                 <div class="checkBoxContainer">
                     <input id="runOnPageLoad" type="checkbox" ${snip.runOnPageLoad && 'checked'}/>

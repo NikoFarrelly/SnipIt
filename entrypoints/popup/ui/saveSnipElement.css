@@ -79,21 +79,21 @@
 }
 
 
-.saveSnipContainer {
+.save-snip {
     padding: 0.5rem;
     display: flex;
     gap: 0.5rem;
     flex-direction: column;
 }
 
-.saveSnipInputs {
+.save-snip__inputs {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
 }
 
-.urlInfo {
+.url-info {
     display: flex;
     justify-content: space-between;
 
@@ -104,10 +104,7 @@
     }
 }
 
-.checkBoxContainer {
-}
-
-.pageLoadContainer {
+.page-load {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -124,7 +121,7 @@
     }
 }
 
-.saveSnipButtonContainer {
+.save-snip__button-container {
     display: flex;
     flex: 1;
     justify-content: end;
@@ -136,7 +133,7 @@
     justify-content: space-between;
 }
 
-.saveSnipButton {
+.save-snip__button {
     width: 35%;
 }
 

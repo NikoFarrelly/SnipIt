@@ -7,33 +7,29 @@ export const addSaveSnipElement = (url?: string, snip?: Snip) => {
     if (addSnip) {
         const saveSnip = document.createElement('div');
         saveSnip.id = 'saveSnip';
-        saveSnip.className = 'saveSnipContainer';
+        saveSnip.className = 'save-snip';
         saveSnip.innerHTML = `
-                <h6>Save this Snip?</h6>
-        <div class="saveSnipInputs">
+        <h6>Save this Snip?</h6>
+        <div class="save-snip__inputs">
             <div class="text-input">
                 <label class="text-input__title" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip?.url ?? url}"/>
             </div>
-            <div class="urlInfo">
+            <div class="url-info">
                 <p>Matches path</p>
                 <p>(* - wildcard)</p>
             </div>
-            <div class="pageLoadContainer">
+            <div class="page-load">
                 <label for="runOnPageLoad">Run on page load:</label>
-                <div class="checkBoxContainer">
-                    <input id="runOnPageLoad" type="checkbox" ${snip?.runOnPageLoad ?? 'checked'}/>
-                </div>
+                <input id="runOnPageLoad" type="checkbox" ${snip?.runOnPageLoad ?? 'checked'}/>
             </div>
-
         </div>
-        <div class="saveSnipButtonContainer">
-            <button id="saveBtn" class="primary-button saveSnipButton">Save</button>
+        <div class="save-snip__button-container">
+            <button id="saveBtn" class="primary-button save-snip__button">Save</button>
         </div>
         `
-        saveSnip.addEventListener('click', saveClicked)
 
+        saveSnip.addEventListener('click', saveClicked)
         addSnip.appendChild(saveSnip);
     }
-
 }
