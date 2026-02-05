@@ -14,10 +14,6 @@ p, h5 {
     margin: 8px 0;
 }
 
-.container-spacing {
-    padding: 8px;
-}
-
 .container {
     display: flex;
     gap: 1rem;
@@ -92,4 +88,21 @@ p, h5 {
 .snipAction:hover {
     background-color: var(--background-hover);
     cursor: pointer;
+}
+
+.item-gap {
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+}
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--border-primary-300);
+}
+
+.container-spacing {
+    padding: 8px;
 }

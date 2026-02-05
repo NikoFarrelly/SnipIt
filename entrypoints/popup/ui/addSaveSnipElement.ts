@@ -1,7 +1,7 @@
 import {Snip} from "@/src/types";
 import {saveClicked} from "@/entrypoints/popup/logic/saveClicked";
 
-export const addSaveSnipElement = async (url?: string, snip?: Snip) => {
+export const addSaveSnipElement = (url?: string, snip?: Snip) => {
     const addSnip = document.getElementById('addSnip');
 
     if (addSnip) {
@@ -11,8 +11,8 @@ export const addSaveSnipElement = async (url?: string, snip?: Snip) => {
         saveSnip.innerHTML = `
                 <h6>Save this Snip?</h6>
         <div class="saveSnipInputs">
-            <div class="inputContainer">
-                <label class="inputTitle" for="url">URL:</label>
+            <div class="text-input">
+                <label class="text-input__title" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip?.url ?? url}"/>
             </div>
             <div class="urlInfo">
@@ -28,7 +28,7 @@ export const addSaveSnipElement = async (url?: string, snip?: Snip) => {
 
         </div>
         <div class="saveSnipButtonContainer">
-            <button id="saveBtn" class="primaryButton saveSnipButton">Save</button>
+            <button id="saveBtn" class="primary-button saveSnipButton">Save</button>
         </div>
         `
         saveSnip.addEventListener('click', saveClicked)

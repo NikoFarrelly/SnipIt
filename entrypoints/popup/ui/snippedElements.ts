@@ -102,34 +102,34 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
     snipExpanded.id = snip.id + "-expanded";
     snipExpanded.innerHTML = `
         <div class="divider"></div>
-        <div class="container-spacing itemGap">
+        <div class="container-spacing item-gap">
             <h6>From element matching</h6>
-            <div class="inputContainer">
-                <label class="inputTitle" for="fromText">Text:</label>
+            <div class="text-input">
+                <label class="text-input__title" for="fromText">Text:</label>
                 <input id="fromText" type="text" value="${snip.fromText}"/>
             </div>
         </div>
 
 
-        <div class="container-spacing itemGap">
+        <div class="container-spacing item-gap">
             <h6>Until element matching:</h6>
-            <div class="inputContainer">
-                <label class="inputTitle" for="untilClass">Class:</label>
+            <div class="text-input">
+                <label class="text-input__title" for="untilClass">Class:</label>
                 <input class="input" id="untilClass" type="text" value="${snip.untilClassName}"/>
             </div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="snipContainer">
-            <div class="snipContainerItems buttonContainer">
-                <button class="primaryButton" type="button" id="snipBtn">
+        <div class="snip-container">
+            <div class="snip-container__items button-container">
+                <button class="primary-button" type="button" id="snipBtn">
                     Snip
                 </button>
             </div>
-            <div class="snipContainerItems snipContainerInfo">
+            <div class="snip-container__items snip-container__info">
                 <p>snipped</p>
-                <p id="${snip.id}-expandedSnipAmount" class="snipContainerAmount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</p>
+                <p id="${snip.id}-expandedSnipAmount" class="info__amount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</p>
             </div>
         </div>
     </div>
@@ -137,8 +137,8 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
     <div class="saveSnipContainer">
         <h6>Update this Snip?</h6>
         <div class="saveSnipInputs">
-            <div class="inputContainer">
-                <label class="inputTitle" for="url">URL:</label>
+            <div class="text-input">
+                <label class="text-input__title" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip.url}"/>
             </div>
             <div class="urlInfo">
@@ -154,8 +154,8 @@ const snipExpanded = async (givenSnip: Snip): Promise<void> => {
 
         </div>
         <div class="updateSnipButtonContainer">
-            <button id="deleteBtn" class="tertiaryButton updateSnipButton">Delete</button>
-            <button id="updateBtn" class="primaryButton updateSnipButton">Update</button>
+            <button id="deleteBtn" class="tertiary-button updateSnipButton">Delete</button>
+            <button id="updateBtn" class="primary-button updateSnipButton">Update</button>
         </div>
         <div class="divider"></div>
    `

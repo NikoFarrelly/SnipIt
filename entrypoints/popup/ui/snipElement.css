@@ -35,26 +35,19 @@
     background-color: unset;
 }
 
-.inputContainer {
+.text-input {
     display: flex;
     flex-direction: row;
 }
 
-.inputTitle {
+.text-input__title {
     display: flex;
     padding-right: 8px;
     margin: auto;
     min-width: 30px;
 }
 
-.itemGap {
-    gap: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 0;
-}
-
-.snipContainer {
+.snip-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -63,7 +56,7 @@
     flex: 1 1 auto;
 }
 
-.snipContainerItems {
+.snip-container__items {
     flex: 1 1 auto;
 
     p {
@@ -72,31 +65,17 @@
     }
 }
 
-.snipContainerInfo {
+.snip-container__info {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: "Roboto Serif", serif;
 }
 
-.snipContainerAmount {
+.info__amount {
     font-family: "Roboto Mono", sans-serif;
     font-weight: bold;
     padding: 0;
-}
-
-
-.buttonContainer {
-    display: flex;
-    align-items: end;
-}
-
-
-
-.divider {
-    height: 1px;
-    width: 100%;
-    background-color: var(--border-primary-300);
 }
 
 

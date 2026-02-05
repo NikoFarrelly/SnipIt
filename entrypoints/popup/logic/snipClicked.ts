@@ -3,6 +3,7 @@ import {addSaveSnipElement} from "@/entrypoints/popup/ui/addSaveSnipElement";
 import {updateSnip} from "@/src/storage";
 import {Snip} from "@/src/types";
 import {updateAllTimeAndPageSnips} from "@/entrypoints/popup/ui/addRemovedElements";
+import {updateAddSnipAmount} from "@/entrypoints/popup/ui/addSnipElement";
 
 // TODO set states per success
 interface SubmitResponseProps {
@@ -44,12 +45,10 @@ export const addSnip = async () => {
     const res = await snip({fromText: fromText, untilClassName: untilClassName});
     // TODO add types for success
     if (res?.success && res?.removedElements) {
-        const saveSnipElement = document.getElementById('saveSnip');
-        if (!saveSnipElement) await addSaveSnipElement(res.url)
+        const hasSaveSnipElement = !!(document.getElementById('saveSnip'));
+        if (!hasSaveSnipElement) addSaveSnipElement(res.url)
 
-        // update DOM
-        const addSnipAmount = document.getElementById('addSnipAmount');
-        if (addSnipAmount) addSnipAmount.innerText = res.removedElements + '';
+        updateAddSnipAmount(res.removedElements)
     }
 }
 
