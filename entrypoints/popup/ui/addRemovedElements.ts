@@ -8,7 +8,7 @@ export const addRemovedElements = async () => {
     const snippedElementsContainer = document.getElementById("snippedElements");
 
     if (snippedElementsContainer) {
-        snippedElementsContainer.className = "snippedElements";
+        snippedElementsContainer.className = "removed-elements";
 
         const data = await getRemovedElementsData();
         if (!data) return undefined;
@@ -17,14 +17,14 @@ export const addRemovedElements = async () => {
         const snippedElements = document.createElement("div");
         snippedElements.innerHTML = `
         <h6>Removed elements</h6>
-        <div class="snippedElementsContainer">
-            <div class="snippedElementsItem">
+        <div class="removed-elements-container">
+            <div class="removed-elements-container__item">
                 <p>on this page</p>
-                <p class="snippedPageAmount snippedAmount" id="snippedPageAmount">${snipsOnThisPage > 0 ? snipsOnThisPage : '-'}</p>
+                <p class="removed-elements-container__item--amount" id="snippedPageAmount">${snipsOnThisPage > 0 ? snipsOnThisPage : '-'}</p>
             </div>
-            <div class="snippedElementsItem">
+            <div class="removed-elements-container__item">
                 <p>in total</p>
-                <p class="snippedTotalAmount snippedAmount" id="snippedTotalAmount">${snipsAllTime}</p>
+                <p class="removed-elements-container__item--amount" id="snippedTotalAmount">${snipsAllTime}</p>
             </div>
         </div>
    `
