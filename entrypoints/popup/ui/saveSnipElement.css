@@ -1,77 +1,3 @@
-.accordion {
-    background-color: var(--background);
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    border-radius: 8px;
-}
-
-
-.accordion:hover {
-    background-color: var(--background-hover);
-}
-
-.accordion:active {
-    background-color: var(--background-click);
-    height: 100vh;
-}
-
-.accordion[open] {
-    border: solid 1px var(--border-secondary-500);
-}
-
-.accordionTitle {
-    padding: 0.5rem 0;
-    margin-bottom: 0.5rem;
-}
-
-.accordion[open] summary {
-    font-size: 0.75rem;
-    font-family: "Roboto Mono", sans-serif;
-    font-weight: bold;
-}
-
-.accordion[open]:hover {
-    background-color: unset;
-}
-
-.text-input {
-    display: flex;
-    flex-direction: row;
-}
-
-.text-input__title {
-    display: flex;
-    padding-right: 8px;
-    margin: auto;
-    min-width: 30px;
-}
-
-.snip-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
-    padding: 0.5rem 0;
-    flex: 1 1 auto;
-}
-
-.snip-container__items {
-    flex: 1 1 auto;
-
-    p {
-        padding: 0;
-        margin: 0;
-    }
-}
-
-.snip-container__info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: "Roboto Serif", serif;
-}
-
 .info__amount {
     font-family: "Roboto Mono", sans-serif;
     font-weight: bold;
@@ -127,16 +53,6 @@
     justify-content: end;
 }
 
-.updateSnipButtonContainer {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-}
-
 .save-snip__button {
-    width: 35%;
-}
-
-.updateSnipButton {
     width: 35%;
 }

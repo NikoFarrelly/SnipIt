@@ -37,3 +37,15 @@ p, h5 {
 .container-spacing {
     padding: 8px;
 }
+
+.text-input {
+    display: flex;
+    flex-direction: row;
+}
+
+.text-input__title {
+    display: flex;
+    padding-right: 8px;
+    margin: auto;
+    min-width: 30px;
+}

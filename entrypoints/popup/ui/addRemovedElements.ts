@@ -73,6 +73,3 @@ export const updateSnipsAllTimeElement = (snipsAllTime: number): void => {
     const amount = document.getElementById('snippedTotalAmount');
     if (amount) amount.innerText = snipsAllTime + '';
 }
-
-// suffix 'element' for UI
-// UI - data - updaters

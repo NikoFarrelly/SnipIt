@@ -64,7 +64,7 @@ const snip = async ({fromText, untilClassName}: {
         fromText,
         untilClassName
     })
-
+    
     if (submit?.success) await updateAllTimeAndPageSnips(submit.removedElements)
 
     return {...submit, url: activeTab.url};

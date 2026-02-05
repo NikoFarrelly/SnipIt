@@ -57,15 +57,13 @@ export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => 
             </div>
             <div class="page-load">
                 <label for="runOnPageLoad">Run on page load:</label>
-                <div class="checkBoxContainer">
                     <input id="runOnPageLoad" type="checkbox" ${snip.runOnPageLoad && 'checked'}/>
-                </div>
             </div>
 
         </div>
-        <div class="updateSnipButtonContainer">
-            <button id="deleteBtn" class="tertiary-button updateSnipButton">Delete</button>
-            <button id="updateBtn" class="primary-button updateSnipButton">Update</button>
+        <div class="save-snip__actions">
+            <button id="deleteBtn" class="tertiary-button actions__button">Delete</button>
+            <button id="updateBtn" class="primary-button actions__button">Update</button>
         </div>
         <div class="divider"></div>
    `
