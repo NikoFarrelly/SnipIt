@@ -1,5 +1,5 @@
 import {Snip} from "./types";
-import {updateSnipsAllTimeElement} from "@/entrypoints/popup/addRemovedElements";
+import {updateSnipsAllTimeElement} from "@/entrypoints/popup/ui/addRemovedElements";
 
 export const getAllSnips = async (): Promise<Snip[]> => {
     const allSnips = [];

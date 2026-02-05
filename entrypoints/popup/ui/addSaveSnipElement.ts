@@ -1,5 +1,5 @@
 import {Snip} from "@/src/types";
-import {saveClicked} from "@/entrypoints/popup/saveClicked";
+import {saveClicked} from "@/entrypoints/popup/logic/saveClicked";
 
 export const addSaveSnipElement = async (url?: string, snip?: Snip) => {
     const addSnip = document.getElementById('addSnip');

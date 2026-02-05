@@ -1,6 +1,6 @@
 import {Snip} from "@/src/types";
 import {deleteSnips, getSnipById, updateSnip} from "@/src/storage";
-import {cardSnip} from "@/entrypoints/popup/snipClicked";
+import {cardSnip} from "@/entrypoints/popup/logic/snipClicked";
 
 /**
  * Setups up the snipsOnThisPage element

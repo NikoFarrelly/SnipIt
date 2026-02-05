@@ -1,5 +1,5 @@
 import {Snip} from "@/src/types";
-import {addSnip} from "@/entrypoints/popup/snipClicked";
+import {addSnip} from "@/entrypoints/popup/logic/snipClicked";
 
 export const addSnipElement = (snip?: Snip) => {
 

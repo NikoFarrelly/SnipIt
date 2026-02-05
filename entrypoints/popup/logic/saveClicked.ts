@@ -1,5 +1,6 @@
-import {getActiveTab} from "../../src/utils";
-import {generateUniqueID, saveSnip} from "../../src/storage";
+import {getActiveTab} from "../../../src/utils";
+import {generateUniqueID, saveSnip} from "../../../src/storage";
+import {Snip} from "@/src/types";
 
 export const saveClicked = async () => {
     const activeTab = await getActiveTab();
@@ -9,16 +10,17 @@ export const saveClicked = async () => {
     const untilClassName = (document.getElementById("untilClass") as HTMLInputElement).value;
     const url = (document.getElementById('url') as HTMLInputElement).value;
     const runOnPageLoad = (document.getElementById('runOnPageLoad') as HTMLInputElement).checked;
-    
+
     // TODO add validation
     if (fromText && untilClassName && url) {
-        const snip = {
+        const snip:Snip = {
             id: generateUniqueID(),
             url: url,
             fromText,
             untilClassName,
             runOnPageLoad: runOnPageLoad,
             snipAmount: 0, // TODO
+            currentPageSnipAmount: 0, // TODO
         }
         await saveSnip(snip)
     }
