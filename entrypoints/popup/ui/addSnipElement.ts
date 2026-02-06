@@ -50,7 +50,21 @@ export const addSnipElement = (snip?: Snip) => {
     }
 }
 
-export const updateAddSnipAmount = (snipAmount:number) => {
+export const updateAddSnipAmount = (snipAmount: number) => {
     const addSnipAmount = document.getElementById('addSnipAmount');
     if (addSnipAmount) addSnipAmount.innerText = snipAmount + '';
+}
+
+export const closeAddSnipElement = () => {
+    const addSnipDetails = document.getElementById("addSnipDetails") as HTMLDetailsElement;
+    if (addSnipDetails) {
+        addSnipDetails.open = false;
+    }
+}
+
+export const openAddSnipElement = () => {
+    const addSnipDetails = document.getElementById("addSnipDetails") as HTMLDetailsElement;
+    if (addSnipDetails) {
+        addSnipDetails.open = true;
+    }
 }

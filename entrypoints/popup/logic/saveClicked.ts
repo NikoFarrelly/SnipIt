@@ -1,6 +1,9 @@
-import {getActiveTab} from "../../../src/utils";
+import {getActiveTab, getSnipsForURL} from "../../../src/utils";
 import {generateUniqueID, saveSnip} from "../../../src/storage";
 import {Snip} from "@/src/types";
+import {snipClosed} from "@/entrypoints/popup/ui/addSnipCardExpandedElement";
+import {updateSnipCardElements} from "@/entrypoints/popup/ui/addSnipsOnThisPageElement";
+import {closeAddSnipElement} from "@/entrypoints/popup/ui/addSnipElement";
 
 export const saveClicked = async () => {
     const activeTab = await getActiveTab();
@@ -13,7 +16,7 @@ export const saveClicked = async () => {
 
     // TODO add validation
     if (fromText && untilClassName && url) {
-        const snip:Snip = {
+        const snip: Snip = {
             id: generateUniqueID(),
             url: url,
             fromText,
@@ -23,5 +26,8 @@ export const saveClicked = async () => {
             currentPageSnipAmount: 0, // TODO
         }
         await saveSnip(snip)
+        closeAddSnipElement();
+        const snipsForThisURL = await getSnipsForURL(activeTab.url);
+        await updateSnipCardElements(snipsForThisURL);
     }
 }

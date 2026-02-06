@@ -96,13 +96,13 @@ export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => 
         }
 
         await updateSnip(snip.id, updatedSnip)
-        await snipClosed(snip);
+        snipClosed(snip);
     })
 
     container.appendChild(snipExpanded);
 }
 
-export const snipClosed = async (snip: Snip): Promise<void> => {
+export const snipClosed = (snip: Snip): void => {
     const expandedSnip = document.getElementById(snip.id + '-expanded');
     if (expandedSnip) expandedSnip.remove();
 
@@ -112,8 +112,8 @@ export const snipClosed = async (snip: Snip): Promise<void> => {
     }
 }
 
-const snipRemoved = async (snip: Snip): Promise<void> => {
-    await snipClosed(snip);
+const snipRemoved = (snip: Snip): void => {
+    snipClosed(snip);
 
     const container = document.getElementById(snip.id);
     if (container) {

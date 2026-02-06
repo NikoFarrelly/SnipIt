@@ -73,3 +73,14 @@ const addSnipCardElements = async (snips: Snip[]): Promise<void> => {
     }
 }
 
+const removeSnipCardElements = () => {
+    const snipCardsContainer = document.getElementById("snipsOnThisPage");
+    if (snipCardsContainer) while (snipCardsContainer.firstChild) snipCardsContainer.removeChild(snipCardsContainer.firstChild);
+}
+
+export const updateSnipCardElements = async (snips: Snip[]) => {
+    removeSnipCardElements();
+    if (snips.length > 0) {
+        await addSnipCardElements(snips);
+    }
+}
