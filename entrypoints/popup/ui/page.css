@@ -2,7 +2,6 @@ body {
     font-family: "Roboto Serif", sans-serif;
     width: var(--content-width);
     padding: 8px;
-
 }
 
 label {

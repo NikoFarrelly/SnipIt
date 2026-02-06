@@ -19,7 +19,6 @@ export const addSnipElement = (snip?: Snip) => {
         </div>
     </div>
 
-
     <div class="container-spacing item-gap">
         <h6>Until element matching:</h6>
         <div class="text-input">
