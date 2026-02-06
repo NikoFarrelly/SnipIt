@@ -12,7 +12,6 @@
 
 .accordion:active {
     background-color: var(--background-click);
-    height: 100vh;
 }
 
 .accordion[open] {
