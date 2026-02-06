@@ -42,7 +42,7 @@ const getRemovedElementsData = async (): Promise<{ snipsAllTime: number, snipsOn
 
     const snipsForThisURL = await getSnipsForURL(activeTab.url);
     snipsForThisURL.filter(s => s.runOnPageLoad);
-    const snipsOnThisPage = snipsForThisURL.reduce((prev, curr) => prev + curr.snipAmount, 0)
+    const snipsOnThisPage = snipsForThisURL.reduce((prev, curr) => prev + curr.currentPageSnipAmount, 0)
 
     return {snipsAllTime, snipsOnThisPage};
 }
@@ -62,7 +62,11 @@ export const updateAllTimeAndPageSnips = async (snippedElements: number): Promis
  */
 export const updateOnThisPageSnipsElement = (snipsOnThisPageAmount: number): void => {
     const amount = document.getElementById('snippedPageAmount');
-    if (amount) amount.innerText = snipsOnThisPageAmount + '';
+
+    if (amount) {
+        const amountNumber = isNaN(Number(amount.innerText)) ? 0 : Number(amount.innerText);
+        amount.innerText = String(amountNumber + snipsOnThisPageAmount)
+    }
 }
 
 /**

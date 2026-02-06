@@ -64,7 +64,7 @@ const addSnipCardElements = async (snips: Snip[]): Promise<void> => {
                     await addSnipExpandedElement(snip);
                 } else {
                     expandSnip.innerText = "+"
-                    await snipClosed(snip);
+                    snipClosed(snip);
                 }
             })
 
@@ -80,7 +80,5 @@ const removeSnipCardElements = () => {
 
 export const updateSnipCardElements = async (snips: Snip[]) => {
     removeSnipCardElements();
-    if (snips.length > 0) {
-        await addSnipCardElements(snips);
-    }
+    if (snips.length > 0) await addSnipCardElements(snips);
 }

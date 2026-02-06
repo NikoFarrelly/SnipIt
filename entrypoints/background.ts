@@ -6,6 +6,5 @@ export default defineBackground({
             if (request.action === 'fireSnipForTab' && sender?.tab) return {success: true, tab: sender.tab};
             return false;
         })
-
     },
 })

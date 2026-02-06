@@ -32,8 +32,6 @@ export const cardSnip = async ({cardSnip}: { cardSnip: Snip }): Promise<void> =>
 
         const expandedCardSnipAmount = document.getElementById(cardSnip.id + '-expandedSnipAmount');
         if (expandedCardSnipAmount) expandedCardSnipAmount.innerText = res.removedElements + '';
-
-        // TODO update global snip values
     }
 }
 
@@ -64,7 +62,7 @@ const snip = async ({fromText, untilClassName}: {
         fromText,
         untilClassName
     })
-    
+
     if (submit?.success) await updateAllTimeAndPageSnips(submit.removedElements)
 
     return {...submit, url: activeTab.url};

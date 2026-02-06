@@ -28,8 +28,9 @@ export const addSaveSnipElement = (url?: string, snip?: Snip) => {
             <button id="saveBtn" class="primary-button save-snip__button">Save</button>
         </div>
         `
+        const saveBtn = saveSnip.querySelector('#saveBtn');
+        if (saveBtn) saveBtn.addEventListener('click', saveClicked)
 
-        saveSnip.addEventListener('click', saveClicked)
         addSnip.appendChild(saveSnip);
     }
 }

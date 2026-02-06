@@ -1,7 +1,6 @@
 import {getActiveTab, getSnipsForURL} from "../../../src/utils";
 import {generateUniqueID, saveSnip} from "../../../src/storage";
 import {Snip} from "@/src/types";
-import {snipClosed} from "@/entrypoints/popup/ui/addSnipCardExpandedElement";
 import {updateSnipCardElements} from "@/entrypoints/popup/ui/addSnipsOnThisPageElement";
 import {closeAddSnipElement} from "@/entrypoints/popup/ui/addSnipElement";
 
