@@ -1,6 +1,8 @@
 # SnipIt!
 
-Sick of seeing the same DOM element appear on every page? Me too.
+SnipIt, make web pages afraid again.
+
+Sick of seeing elements on a web page that are annoying? Whether it's because of enshittification, or bad UI. SnipIt will remove it. Target an element via text and a CSS selector then SnipIt. Save it and never have to see it again.
 
 ### Installation
 
@@ -19,3 +21,7 @@ Sick of seeing the same DOM element appear on every page? Me too.
 ### Build
 
 1. run `pnpm build`
+
+##### Firefox
+
+1. run `pnpm build:firefox`
