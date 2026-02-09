@@ -1,5 +1,6 @@
 import {Snip} from "@/src/types";
 import {saveClicked} from "@/entrypoints/popup/logic/saveClicked";
+import {HTMLInputElement} from "linkedom";
 
 const INACTIVE_BUTTON_TITLE = "Inactive until a valid 'url' is provided.";
 
@@ -66,5 +67,15 @@ const isValidURL = (url: string) => {
         return true;
     } catch (e) {
         return false;
+    }
+}
+
+export const resetSaveSnipElement = () => {
+    const urlInput = document.getElementById('url') as HTMLInputElement;
+    const runOnPageLoad = document.getElementById('runOnPageLoad') as HTMLInputElement;
+
+    if (urlInput && runOnPageLoad) {
+        urlInput.value = '';
+        runOnPageLoad.checked = true;
     }
 }

@@ -46,7 +46,7 @@ export const addSnip = async () => {
         const hasSaveSnipElement = !!(document.getElementById('saveSnip'));
         if (!hasSaveSnipElement) addSaveSnipElement(res.url)
 
-        updateAddSnipAmount(res.removedElements)
+        updateAddSnipAmount(res.removedElements + '')
     }
 }
 

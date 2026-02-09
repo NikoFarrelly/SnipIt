@@ -76,15 +76,26 @@ const validateAddSnip = () => {
     }
 }
 
-export const updateAddSnipAmount = (snipAmount: number) => {
+export const updateAddSnipAmount = (snipAmount: string) => {
     const addSnipAmount = document.getElementById('addSnipAmount');
-    if (addSnipAmount) addSnipAmount.innerText = snipAmount + '';
+    if (addSnipAmount) addSnipAmount.innerText = snipAmount;
 }
 
 export const closeAddSnipElement = () => {
     const addSnipDetails = document.getElementById("addSnipDetails") as HTMLDetailsElement;
     if (addSnipDetails) {
         addSnipDetails.open = false;
+    }
+}
+
+export const resetAndCloseAddSnipElement = () => {
+    const fromInput = document.getElementById('fromText') as HTMLInputElement;
+    const untilInput = document.getElementById('untilClass') as HTMLInputElement;
+    if (fromInput && untilInput) {
+        fromInput.value = '';
+        untilInput.value = '';
+        updateAddSnipAmount('-')
+        closeAddSnipElement();
     }
 }
 

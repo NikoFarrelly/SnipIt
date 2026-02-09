@@ -2,7 +2,8 @@ import {getActiveTab, getSnipsForURL} from "../../../src/utils";
 import {generateUniqueID, saveSnip} from "../../../src/storage";
 import {Snip} from "@/src/types";
 import {updateSnipCardElements} from "@/entrypoints/popup/ui/addSnipsOnThisPageElement";
-import {closeAddSnipElement} from "@/entrypoints/popup/ui/addSnipElement";
+import {resetAndCloseAddSnipElement} from "@/entrypoints/popup/ui/addSnipElement";
+import {resetSaveSnipElement} from "@/entrypoints/popup/ui/addSaveSnipElement";
 
 export const saveClicked = async () => {
     const activeTab = await getActiveTab();
@@ -26,7 +27,8 @@ export const saveClicked = async () => {
             currentPageSnipAmount: parsedAmount,
         }
         await saveSnip(snip)
-        closeAddSnipElement();
+        resetAndCloseAddSnipElement();
+        resetSaveSnipElement();
         const snipsForThisURL = await getSnipsForURL(activeTab.url);
         await updateSnipCardElements(snipsForThisURL);
     }
