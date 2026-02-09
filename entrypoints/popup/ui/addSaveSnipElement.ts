@@ -1,6 +1,5 @@
 import {Snip} from "@/src/types";
 import {saveClicked} from "@/entrypoints/popup/logic/saveClicked";
-import {HTMLInputElement} from "linkedom";
 
 const INACTIVE_BUTTON_TITLE = "Inactive until a valid 'url' is provided.";
 
