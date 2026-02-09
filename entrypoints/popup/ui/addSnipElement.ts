@@ -1,6 +1,8 @@
 import {Snip} from "@/src/types";
 import {addSnip} from "@/entrypoints/popup/logic/snipClicked";
 
+const INACTIVE_BUTTON_TITLE = "Inactive until a 'from' and 'until' are provided.";
+
 export const addSnipElement = (snip?: Snip) => {
     const addSnipDetails = document.getElementById('addSnipDetails');
 
@@ -31,7 +33,7 @@ export const addSnipElement = (snip?: Snip) => {
 
     <div class="snip-container">
         <div class="snip-container__items">
-            <button class="primary-button" type="button" id="snipBtn">
+            <button class="primary-button" type="button" id="addSnipBtn" disabled title="${INACTIVE_BUTTON_TITLE}">
                 Snip
             </button>
         </div>
@@ -43,10 +45,34 @@ export const addSnipElement = (snip?: Snip) => {
     <div class="divider"></div>
         `
 
-        const snipButton = addSnipContainer.querySelector('#snipBtn');
+        const snipButton = addSnipContainer.querySelector('#addSnipBtn');
         if (snipButton) snipButton.addEventListener('click', addSnip)
 
+        const fromInput = addSnipContainer.querySelector('#fromText');
+        const untilInput = addSnipContainer.querySelector('#untilClass');
+        if (fromInput && untilInput) {
+            fromInput.addEventListener("input", validateAddSnip)
+            untilInput.addEventListener("input", validateAddSnip)
+        }
+
         addSnipDetails.appendChild(addSnipContainer);
+    }
+}
+
+const validateAddSnip = () => {
+    const fromInput = document.getElementById('fromText') as HTMLInputElement;
+    const untilInput = document.getElementById('untilClass') as HTMLInputElement;
+    const snipButton = document.getElementById('addSnipBtn') as HTMLButtonElement;
+
+    const hasFromInput = fromInput?.value?.trim()?.length > 0;
+    const hasUntilInput = untilInput?.value?.trim()?.length > 0;
+
+    if (hasFromInput && hasUntilInput && snipButton.disabled) {
+        snipButton.disabled = false;
+        snipButton.title = 'active';
+    } else if (!snipButton.disabled && !(hasFromInput && hasUntilInput)) {
+        snipButton.disabled = true;
+        snipButton.title = INACTIVE_BUTTON_TITLE;
     }
 }
 
