@@ -1,6 +1,8 @@
 import {Snip} from "@/src/types";
 import {saveClicked} from "@/entrypoints/popup/logic/saveClicked";
 
+const INACTIVE_BUTTON_TITLE = "Inactive until a valid 'url' is provided.";
+
 export const addSaveSnipElement = (url?: string, snip?: Snip) => {
     const addSnip = document.getElementById('addSnip');
 
@@ -25,12 +27,44 @@ export const addSaveSnipElement = (url?: string, snip?: Snip) => {
             </div>
         </div>
         <div class="save-snip__button-container">
-            <button id="saveBtn" class="primary-button save-snip__button">Save</button>
+            <button id="saveBtn" class="primary-button save-snip__button" title="active">Save</button>
         </div>
         `
         const saveBtn = saveSnip.querySelector('#saveBtn');
         if (saveBtn) saveBtn.addEventListener('click', saveClicked)
 
+        const urlInput = saveSnip.querySelector('#url');
+        if (urlInput) urlInput.addEventListener("input", validateSaveSnip)
+
         addSnip.appendChild(saveSnip);
+    }
+}
+// NOTE: URL is prefilled, so there's no need to begin with a disabled state.
+
+const validateSaveSnip = (e: Event) => {
+    const urlInputValue = (e.target as HTMLInputElement)?.value?.trim();
+    const saveBtn = document.getElementById('saveBtn') as HTMLButtonElement;
+    const hasURLValue = urlInputValue?.length > 0 && isValidURL(urlInputValue);
+
+    if (hasURLValue && saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.title = "active"
+    } else if (!hasURLValue && saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.title = INACTIVE_BUTTON_TITLE;
+    }
+}
+
+/**
+ * Provides light validation that the URL provided is valid.
+ * @param url
+ */
+const isValidURL = (url: string) => {
+    try {
+        const constructedURL = new URL(url);
+        if (constructedURL.host.length === 0) throw new Error('URL must have a valid host.');
+        return true;
+    } catch (e) {
+        return false;
     }
 }
