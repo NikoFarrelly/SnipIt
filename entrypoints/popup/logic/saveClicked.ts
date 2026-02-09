@@ -12,8 +12,9 @@ export const saveClicked = async () => {
     const untilClassName = (document.getElementById("untilClass") as HTMLInputElement).value;
     const url = (document.getElementById('url') as HTMLInputElement).value;
     const runOnPageLoad = (document.getElementById('runOnPageLoad') as HTMLInputElement).checked;
+    const snippedAmount = (document.getElementById("addSnipAmount") as HTMLParagraphElement);
+    const parsedAmount = snippedAmount?.innerText ? parseInt(snippedAmount.innerText) : 0;
 
-    // TODO add validation
     if (fromText && untilClassName && url) {
         const snip: Snip = {
             id: generateUniqueID(),
@@ -21,8 +22,8 @@ export const saveClicked = async () => {
             fromText,
             untilClassName,
             runOnPageLoad: runOnPageLoad,
-            snipAmount: 0, // TODO
-            currentPageSnipAmount: 0, // TODO
+            snipAmount: parsedAmount,
+            currentPageSnipAmount: parsedAmount,
         }
         await saveSnip(snip)
         closeAddSnipElement();
