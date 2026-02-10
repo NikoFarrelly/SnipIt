@@ -20,6 +20,7 @@ Sick of seeing elements on a web page that are annoying? Whether it's because of
 
 ### Build
 
+For all output targets (Firefox, Chrome).
 1. run `pnpm build`
 
 ##### Firefox
