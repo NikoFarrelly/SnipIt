@@ -52,10 +52,29 @@ p, h5 {
 .header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+
+    p {
+        color: var(--background-text);
+    }
+}
+
+.header__title {
+    display: flex;
+    flex: 1;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.5rem;
-    padding: 8px 0;
+}
+
+.header__version {
+    margin-bottom: auto;
+
+    p {
+        padding: 0;
+        margin: 0;
+    }
 }
 
 .logo {
@@ -66,6 +85,7 @@ p, h5 {
     display: flex;
     border-radius: 16px;
     background-color: var(--border-primary-300);
+    margin-right: 8px;
 }
 
 .logo__image {
