@@ -48,3 +48,29 @@ p, h5 {
     margin: auto;
     min-width: 30px;
 }
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 0;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    justify-self: center;
+    align-items: center;
+    display: flex;
+    border-radius: 16px;
+    background-color: var(--border-primary-300);
+}
+
+.logo__image {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    margin: auto;
+}

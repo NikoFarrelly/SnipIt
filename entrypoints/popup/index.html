@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
-    <head>
-        <link rel="stylesheet" href="ui/styles.css">
-        <link rel="stylesheet" href="ui/snipsOnThisPageElement.css">
-        <link rel="stylesheet" href="ui/removedElements.css">
-        <link rel="stylesheet" href="ui/saveSnipElement.css">
-        <link rel="stylesheet" href="ui/addSnipElement.css">
-        <link rel="stylesheet" href="ui/snipCardExpandedElement.css">
-        <link rel="stylesheet" href="ui/page.css">
+<head>
+    <link rel="stylesheet" href="ui/styles.css">
+    <link rel="stylesheet" href="ui/snipsOnThisPageElement.css">
+    <link rel="stylesheet" href="ui/removedElements.css">
+    <link rel="stylesheet" href="ui/saveSnipElement.css">
+    <link rel="stylesheet" href="ui/addSnipElement.css">
+    <link rel="stylesheet" href="ui/snipCardExpandedElement.css">
+    <link rel="stylesheet" href="ui/page.css">
 
-        <meta charset="utf-8"/>
-        <title>SnipIt</title>
-    </head>
+    <meta charset="utf-8"/>
+    <title>SnipIt</title>
+</head>
 
-    <body class="container">
+<body class="container">
 
-        <div class="container-spacing">
-            <h1>SnipIt</h1>
-        </div>
+<header class="header">
+    <div class="logo">
+        <img src="/public/icon/48.png" alt="logo" class="logo__image"/>
+    </div>
+    <h1>SnipIt</h1>
+</header>
 
-        <!-- Snipped elements -->
-        <div id="snippedElements">
-        </div>
-        <!-- EO Snipped elements -->
+<!-- Snipped elements -->
+<div id="snippedElements">
+</div>
+<!-- EO Snipped elements -->
 
-        <!-- Snips on this page -->
-        <div id="snipsOnThisPageContainer"></div>
+<!-- Snips on this page -->
+<div id="snipsOnThisPageContainer"></div>
 
-        <!--Add Snip -->
-        <details class="accordion" id="addSnipDetails">
-            <summary class="accordion__summary">
-                Add Snip
-            </summary>
-        </details>
-        <!--EO addSnip -->
+<!--Add Snip -->
+<details class="accordion" id="addSnipDetails">
+    <summary class="accordion__summary">
+        Add Snip
+    </summary>
+</details>
+<!--EO addSnip -->
 
-        <script src="./main.ts" type="module"></script>
+<script src="./main.ts" type="module"></script>
 
-    </body>
+</body>
 </html>
