@@ -1,9 +1,9 @@
 .save-snip__actions {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .actions__button {
-    width: 35%;
+  width: 35%;
 }

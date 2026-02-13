@@ -1,32 +1,32 @@
 .removed-elements {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .removed-elements__container {
-    display: flex;
-    gap: normal;
-    flex-direction: row;
-    justify-content: space-between;
-    border: solid 1px var(--border-primary-300);
-    border-radius: 8px;
-    padding: 0.5rem;
+  display: flex;
+  gap: normal;
+  flex-direction: row;
+  justify-content: space-between;
+  border: solid 1px var(--border-primary-300);
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 .removed-elements__item {
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 
-    p {
-        padding: 0;
-        margin: 0;
-    }
+  p {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .removed-elements__text {
-    font-weight: bold;
+  font-weight: bold;
 }

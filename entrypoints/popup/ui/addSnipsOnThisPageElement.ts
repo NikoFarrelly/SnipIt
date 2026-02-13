@@ -1,91 +1,101 @@
-import {Snip} from "@/src/types";
-import {cardSnip} from "@/entrypoints/popup/logic/snipClicked";
-import {addSnipExpandedElement, snipClosed} from "@/entrypoints/popup/ui/addSnipCardExpandedElement";
+import { Snip } from "@/src/types";
+import { cardSnip } from "@/entrypoints/popup/logic/snipClicked";
+import {
+  addSnipExpandedElement,
+  snipClosed,
+} from "@/entrypoints/popup/ui/addSnipCardExpandedElement";
 
 export const addSnipsOnThisPage = async (snips: Snip[]) => {
-    if (snips.length > 0) {
-        await addSnipsOnThisPageContainerElement();
-        await addSnipCardElements(snips);
-    }
-}
+  if (snips.length > 0) {
+    await addSnipsOnThisPageContainerElement();
+    await addSnipCardElements(snips);
+  }
+};
 
 /**
  * Sets up the container for the 'Snips on this page' element.
  */
 const addSnipsOnThisPageContainerElement = async (): Promise<void> => {
-    const snippedElementsContainer = document.getElementById("snipsOnThisPageContainer");
+  const snippedElementsContainer = document.getElementById(
+    "snipsOnThisPageContainer",
+  );
 
-    if (snippedElementsContainer) {
-        const title = document.createElement("h6")
-        title.innerText = "Snips on this page";
-        snippedElementsContainer.appendChild(title);
+  if (snippedElementsContainer) {
+    const title = document.createElement("h6");
+    title.innerText = "Snips on this page";
+    snippedElementsContainer.appendChild(title);
 
-        const snipsOnThisPage = document.createElement("div");
-        snipsOnThisPage.className = 'snips-on-this-page';
-        snipsOnThisPage.id = "snipsOnThisPage";
-        snippedElementsContainer.appendChild(snipsOnThisPage);
-    }
-}
+    const snipsOnThisPage = document.createElement("div");
+    snipsOnThisPage.className = "snips-on-this-page";
+    snipsOnThisPage.id = "snipsOnThisPage";
+    snippedElementsContainer.appendChild(snipsOnThisPage);
+  }
+};
 
 /**
  * Adds all the snip cards to the 'Snips on this page' container.
  * @param snips
  */
 const addSnipCardElements = async (snips: Snip[]): Promise<void> => {
-    const container = document.getElementById("snipsOnThisPage");
-    if (container) {
-
-        snips.forEach(snip => {
-            const card = document.createElement("article");
-            card.className = "snip-card";
-            card.id = snip.id;
-            card.innerHTML = ` 
+  const container = document.getElementById("snipsOnThisPage");
+  if (container) {
+    snips.forEach((snip) => {
+      const card = document.createElement("article");
+      card.className = "snip-card";
+      card.id = snip.id;
+      card.innerHTML = ` 
             <div class="snips-on-this-page__content">
                 <div class="snips-on-this-page__info-text">
                     <p class="snips-on-this-page__text snips-on-this-page__text--URL" id="snipURL">${snip.url}</p>
                     <p class="snips-on-this-page__text snips-on-this-page__text--bg-text">${snip.runOnPageLoad ? "Runs on page load" : "Runs on Snip"}</p>
-                    <p class="snips-on-this-page__text snips-on-this-page__text--bg-text">Snipped <span id="${snip.id}-cardSnipAmount" class="snips-on-this-page__amount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</span></p>
+                    <p class="snips-on-this-page__text snips-on-this-page__text--bg-text">Snipped <span id="${snip.id}-cardSnipAmount" class="snips-on-this-page__amount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : "-"}</span></p>
                 </div>
                 <div class="snips-on-this-page__actions">
                     <button class="snips-on-this-page__action" id="snipBtn">✂️</button>
                     <button class="snips-on-this-page__action" id="expandSnip">+</button>
                 </div>
-            </div>`
+            </div>`;
 
-            const snipBtn = card.querySelector('#snipBtn');
-            if (snipBtn) snipBtn.addEventListener("click", async () => cardSnip({cardSnip: snip}));
+      const snipBtn = card.querySelector("#snipBtn");
+      if (snipBtn)
+        snipBtn.addEventListener("click", async () =>
+          cardSnip({ cardSnip: snip }),
+        );
 
-            const expandSnip: HTMLElement | null = card.querySelector('#expandSnip');
-            if (expandSnip) expandSnip.addEventListener('click', async () => {
-                if (expandSnip.innerText === "+") {
-                    expandSnip.innerText = "-"
-                    await addSnipExpandedElement(snip);
-                } else {
-                    expandSnip.innerText = "+"
-                    snipClosed(snip);
-                }
-            })
+      const expandSnip: HTMLElement | null = card.querySelector("#expandSnip");
+      if (expandSnip)
+        expandSnip.addEventListener("click", async () => {
+          if (expandSnip.innerText === "+") {
+            expandSnip.innerText = "-";
+            await addSnipExpandedElement(snip);
+          } else {
+            expandSnip.innerText = "+";
+            snipClosed(snip);
+          }
+        });
 
-            container.appendChild(card)
-        })
-    }
-}
+      container.appendChild(card);
+    });
+  }
+};
 
 const removeSnipCardElements = () => {
-    const snipCardsContainer = document.getElementById("snipsOnThisPage");
-    if (snipCardsContainer) while (snipCardsContainer.firstChild) snipCardsContainer.removeChild(snipCardsContainer.firstChild);
-}
+  const snipCardsContainer = document.getElementById("snipsOnThisPage");
+  if (snipCardsContainer)
+    while (snipCardsContainer.firstChild)
+      snipCardsContainer.removeChild(snipCardsContainer.firstChild);
+};
 
 /**
  * Removes then adds all snip card elements.
  * @param snips
  */
 export const resetSnipCardElements = async (snips: Snip[]) => {
-    removeSnipCardElements();
-    if (snips.length > 0) await addSnipCardElements(snips);
-}
+  removeSnipCardElements();
+  if (snips.length > 0) await addSnipCardElements(snips);
+};
 
 export const updateCardSnipAmount = (id: string, amount: string) => {
-    const cardSnipAmount = document.getElementById(id + '-cardSnipAmount');
-    if (cardSnipAmount) cardSnipAmount.innerText = amount;
-}
+  const cardSnipAmount = document.getElementById(id + "-cardSnipAmount");
+  if (cardSnipAmount) cardSnipAmount.innerText = amount;
+};
