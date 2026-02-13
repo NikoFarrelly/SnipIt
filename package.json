@@ -14,13 +14,20 @@
     "zip:firefox": "wxt zip -b firefox",
     "postinstall": "wxt prepare",
     "format:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,css,html}\""
-  },
-  "dependencies": {
+    "format": "prettier --write \"**/*.{ts,tsx,css,html}\"",
+    "lint": "eslint .",
+    "lint:check": "eslint . --fix"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0",
     "prettier": "^3.8.1",
     "typescript": "^5.5.3",
+    "typescript-eslint": "^8.55.0",
     "wxt": "^0.20.6"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

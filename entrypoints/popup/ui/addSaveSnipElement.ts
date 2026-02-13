@@ -70,6 +70,7 @@ const isValidURL = (url: string) => {
     if (constructedURL.host.length === 0)
       throw new Error("URL must have a valid host.");
     return true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false;
   }

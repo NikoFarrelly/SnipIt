@@ -12,9 +12,9 @@ import { updateAddSnipAmount } from "@/entrypoints/popup/ui/addSnipElement";
 import { updateCardSnipAmount } from "@/entrypoints/popup/ui/addSnipsOnThisPageElement";
 import { updateExpandedSnipAmount } from "@/entrypoints/popup/ui/addSnipCardExpandedElement";
 
-interface SnipSuccess extends SnipClickResponse {}
+type SnipSuccess = SnipClickResponse;
 
-interface SnipActiveTabFailure extends SnipClickFailure {}
+type SnipActiveTabFailure = SnipClickFailure;
 
 interface SnipFailure {
   success: false;
