@@ -140,29 +140,29 @@ button:focus {
     outline: 5px auto -webkit-focus-ring-color;
 }
 
-.primary-button {
+.button--primary {
     background-color: var(--button-primary-background);
     border-color: var(--button-primary-border);
 }
 
-.primary-button:hover {
+.button--primary:hover {
     background-color: var(--button-primary-background-hover);
 }
 
-.primary-button:active {
+.button--primary:active {
     background-color: var(--button-primary-background-active);
 }
 
-.tertiary-button {
+.button--tertiary {
     background-color: var(--button-tertiary-background);
     border-color: var(--button-tertiary-border);
 }
 
-.tertiary-button:hover {
+.button--tertiary:hover {
     background-color: var(--button-tertiary-background-hover);
 }
 
-.tertiary-button:active {
+.button--tertiary:active {
     background-color: var(--button-tertiary-background-active);
 }
 

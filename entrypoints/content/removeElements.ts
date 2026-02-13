@@ -1,14 +1,18 @@
-
-export interface RemoveElementsProps {
+interface RemoveElementsProps {
     fromText: string
     untilClassName: string
+}
+
+export interface RemoveElementsResponse {
+    removedElements: number;
+    matchedElements: number;
 }
 
 /**
  * Receives messages from a listener to remove DOM elements on a webpage.
  * @param message
  */
-export const removeElements = (message: RemoveElementsProps) => {
+export const removeElements = (message: RemoveElementsProps): RemoveElementsResponse => {
     const {
         fromText,
         untilClassName

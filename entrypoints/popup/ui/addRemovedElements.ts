@@ -1,9 +1,7 @@
-import {getGlobalState, updateSnipsAllTime} from "@/src/storage";
-import {getActiveTab, getSnipsForURL} from "@/src/utils";
+import {getGlobalState} from "@/src/storage";
+import {getActiveTab} from "@/src/utils";
+import {getSnipsForURL, updateSnipsAllTime} from "@/src/snips.utils";
 
-/**
- * Adds the 'Removed Elements' UI.
- */
 export const addRemovedElements = async () => {
     const snippedElementsContainer = document.getElementById("snippedElements");
 
@@ -17,14 +15,14 @@ export const addRemovedElements = async () => {
         const snippedElements = document.createElement("div");
         snippedElements.innerHTML = `
         <h6>Removed elements</h6>
-        <div class="removed-elements-container">
-            <div class="removed-elements-container__item">
+        <div class="removed-elements__container">
+            <div class="removed-elements__item">
                 <p>on this page</p>
-                <p class="removed-elements-container__item--amount" id="snippedPageAmount">${snipsOnThisPage > 0 ? snipsOnThisPage : '-'}</p>
+                <p class="removed-elements__text" id="snippedPageAmount">${snipsOnThisPage > 0 ? snipsOnThisPage : '-'}</p>
             </div>
-            <div class="removed-elements-container__item">
+            <div class="removed-elements__item">
                 <p>in total</p>
-                <p class="removed-elements-container__item--amount" id="snippedTotalAmount">${snipsAllTime}</p>
+                <p class="removed-elements__text" id="snippedTotalAmount">${snipsAllTime}</p>
             </div>
         </div>
    `

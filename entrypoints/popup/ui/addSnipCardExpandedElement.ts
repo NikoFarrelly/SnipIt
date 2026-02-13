@@ -4,7 +4,7 @@ import {cardSnip} from "@/entrypoints/popup/logic/snipClicked";
 
 export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => {
     const container = document.getElementById(givenSnip.id) as HTMLElement;
-    // get the latest snip value, as it may have changed from previous updates
+    // get the latest snip value, as it may have changed from previous updates.
     const snip = await getSnipById(givenSnip.id);
     if (!snip?.id) return;
 
@@ -15,56 +15,61 @@ export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => 
         <div class="container-spacing item-gap">
             <h6>From element matching</h6>
             <div class="text-input">
-                <label class="text-input__title" for="fromText">Text:</label>
+                <label class="text-input__label" for="fromText">Text:</label>
                 <input id="fromText" type="text" value="${snip.fromText}"/>
             </div>
         </div>
 
-
         <div class="container-spacing item-gap">
             <h6>Until element matching:</h6>
             <div class="text-input">
-                <label class="text-input__title" for="untilClass">Class:</label>
+                <label class="text-input__label" for="untilClass">Class:</label>
                 <input class="input" id="untilClass" type="text" value="${snip.untilClassName}"/>
             </div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="snip-container">
-            <div class="snip-container__items button-container">
-                <button class="primary-button" type="button" id="snipBtn">
+        <div class="add-snip__actions">
+            <div class="add-snip__action-item">
+                <button class="button--primary" type="button" id="snipBtn">
                     Snip
                 </button>
             </div>
-            <div class="snip-container__items snip-container__info">
+            <div class="add-snip__action-item add-snip__action-item--info">
                 <p>snipped</p>
                 <p id="${snip.id}-expandedSnipAmount" class="info__amount">${snip.currentPageSnipAmount > 0 ? snip.currentPageSnipAmount : '-'}</p>
             </div>
         </div>
+        
     </div>
+    
     <div class="divider"></div>
+    
     <div class="save-snip">
         <h6>Update this Snip?</h6>
         <div class="save-snip__inputs">
+        
             <div class="text-input">
-                <label class="text-input__title" for="url">URL:</label>
+                <label class="text-input__label" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip.url}"/>
             </div>
-            <div class="url-info">
+            <div class="save-snip__url-info">
                 <p>Matches path</p>
                 <p>(* - wildcard)</p>
             </div>
-            <div class="page-load">
+            <div class="save-snip__page-load">
                 <label for="runOnPageLoad">Run on page load:</label>
                     <input id="runOnPageLoad" type="checkbox" ${snip.runOnPageLoad && 'checked'}/>
             </div>
 
         </div>
+        
         <div class="save-snip__actions">
-            <button id="deleteBtn" class="tertiary-button actions__button">Delete</button>
-            <button id="updateBtn" class="primary-button actions__button">Update</button>
+            <button id="deleteBtn" class="button--tertiary actions__button">Delete</button>
+            <button id="updateBtn" class="button--primary actions__button">Update</button>
         </div>
+        
         <div class="divider"></div>
    `
 
@@ -76,7 +81,7 @@ export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => 
     const deleteButton = snipExpanded.querySelector('#deleteBtn') as HTMLElement;
     deleteButton.addEventListener('click', async () => {
         await deleteSnips(snip.id)
-        await snipRemoved(snip);
+        snipRemoved(snip);
     })
 
     const updateButton = snipExpanded.querySelector('#updateBtn') as HTMLElement;
@@ -102,6 +107,10 @@ export const addSnipExpandedElement = async (givenSnip: Snip): Promise<void> => 
     container.appendChild(snipExpanded);
 }
 
+/**
+ * Given Snip it's card is found & closed.
+ * @param snip
+ */
 export const snipClosed = (snip: Snip): void => {
     const expandedSnip = document.getElementById(snip.id + '-expanded');
     if (expandedSnip) expandedSnip.remove();
@@ -112,12 +121,18 @@ export const snipClosed = (snip: Snip): void => {
     }
 }
 
+/**
+ * Given Snip it's card is found & removed.
+ * @param snip
+ */
 const snipRemoved = (snip: Snip): void => {
     snipClosed(snip);
 
     const container = document.getElementById(snip.id);
-    if (container) {
-        container.remove();
-    }
+    if (container) container.remove();
 }
 
+export const updateExpandedSnipAmount = (id: string, amount: string) => {
+    const expandedCardSnipAmount = document.getElementById(id + '-expandedSnipAmount');
+    if (expandedCardSnipAmount) expandedCardSnipAmount.innerText = amount;
+}

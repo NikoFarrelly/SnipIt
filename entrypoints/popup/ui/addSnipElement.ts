@@ -16,7 +16,7 @@ export const addSnipElement = (snip?: Snip) => {
     <div class="container-spacing item-gap">
         <h6>From element matching</h6>
         <div class="text-input">
-            <label class="text-input__title" for="fromText">Text:</label>
+            <label class="text-input__label" for="fromText">Text:</label>
             <input id="fromText" type="text" value="${snip?.fromText ?? ''}"/>
         </div>
     </div>
@@ -24,22 +24,22 @@ export const addSnipElement = (snip?: Snip) => {
     <div class="container-spacing item-gap">
         <h6>Until element matching:</h6>
         <div class="text-input">
-            <label class="text-input__title" for="untilClass">Class:</label>
+            <label class="text-input__label" for="untilClass">Class:</label>
             <input id="untilClass" type="text" value="${snip?.untilClassName ?? ''}"/>
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <div class="snip-container">
-        <div class="snip-container__items">
-            <button class="primary-button" type="button" id="addSnipBtn" disabled title="${INACTIVE_BUTTON_TITLE}">
+    <div class="add-snip__actions">
+        <div class="add-snip__action-item">
+            <button class="button--primary" type="button" id="addSnipBtn" disabled title="${INACTIVE_BUTTON_TITLE}">
                 Snip
             </button>
         </div>
-        <div class="snip-container__items snip-container__info">
+        <div class="add-snip__action-item add-snip__action-item--info">
             <p>snipped</p>
-            <p id="${snip?.id ? snip.id + '-' : ''}addSnipAmount" class="info__amount">${snip?.snipAmount && snip.snipAmount > 0 ? snip.snipAmount : '-'}</p>
+            <p id="${snip?.id ? snip.id + '-' : ''}addSnipAmount" class="add-snip__amount">${snip?.snipAmount && snip.snipAmount > 0 ? snip.snipAmount : '-'}</p>
         </div>
     </div>
     <div class="divider"></div>
@@ -59,6 +59,9 @@ export const addSnipElement = (snip?: Snip) => {
     }
 }
 
+/**
+ * Handles addSnip validation, From & Until inputs both require input before the 'Snip' button becomes active.
+ */
 const validateAddSnip = () => {
     const fromInput = document.getElementById('fromText') as HTMLInputElement;
     const untilInput = document.getElementById('untilClass') as HTMLInputElement;
@@ -82,26 +85,26 @@ export const updateAddSnipAmount = (snipAmount: string) => {
 }
 
 export const closeAddSnipElement = () => {
-    const addSnipDetails = document.getElementById("addSnipDetails") as HTMLDetailsElement;
+    const addSnipDetails = document.getElementById("addSnipDetails");
     if (addSnipDetails) {
-        addSnipDetails.open = false;
+        (addSnipDetails as HTMLDetailsElement).open = false;
     }
 }
 
 export const resetAndCloseAddSnipElement = () => {
-    const fromInput = document.getElementById('fromText') as HTMLInputElement;
-    const untilInput = document.getElementById('untilClass') as HTMLInputElement;
+    const fromInput = document.getElementById('fromText');
+    const untilInput = document.getElementById('untilClass');
     if (fromInput && untilInput) {
-        fromInput.value = '';
-        untilInput.value = '';
+        (fromInput as HTMLInputElement).value = '';
+        (untilInput as HTMLInputElement).value = '';
         updateAddSnipAmount('-')
         closeAddSnipElement();
     }
 }
 
 export const openAddSnipElement = () => {
-    const addSnipDetails = document.getElementById("addSnipDetails") as HTMLDetailsElement;
+    const addSnipDetails = document.getElementById("addSnipDetails");
     if (addSnipDetails) {
-        addSnipDetails.open = true;
+        (addSnipDetails as HTMLDetailsElement).open = true;
     }
 }

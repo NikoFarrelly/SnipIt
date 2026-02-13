@@ -1,4 +1,4 @@
-import {RemoveElementsProps} from "@/entrypoints/content/removeElements";
+import {RemoveElementsResponse} from "@/entrypoints/content/removeElements";
 
 export type Snip = {
     url: string;
@@ -10,10 +10,17 @@ export type Snip = {
     id: string;
 }
 
-export type StoredSnip = {
-    [id: string]: Snip
-};
+export type SnipClickResult = SnipClickFailure | SnipClickSuccess;
 
-export interface FireSnipOnClickAction extends RemoveElementsProps {
-    action: 'fireSnipOnClick',
+export interface SnipClickFailure {
+    success: false;
+    error: string;
+}
+
+export interface SnipClickSuccess extends RemoveElementsResponse {
+    success: true;
+}
+
+export interface SnipClickResponse extends RemoveElementsResponse {
+    success: boolean;
 }

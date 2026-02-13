@@ -14,20 +14,20 @@ export const addSaveSnipElement = (url?: string, snip?: Snip) => {
         <h6>Save this Snip?</h6>
         <div class="save-snip__inputs">
             <div class="text-input">
-                <label class="text-input__title" for="url">URL:</label>
+                <label class="text-input__label" for="url">URL:</label>
                 <input class="input" id="url" type="text" value="${snip?.url ?? url}"/>
             </div>
-            <div class="url-info">
+            <div class="save-snip__url-info">
                 <p>Matches path</p>
                 <p>(* - wildcard)</p>
             </div>
-            <div class="page-load">
+            <div class="save-snip__page-load">
                 <label for="runOnPageLoad">Run on page load:</label>
                 <input id="runOnPageLoad" type="checkbox" ${snip?.runOnPageLoad ?? 'checked'}/>
             </div>
         </div>
-        <div class="save-snip__button-container">
-            <button id="saveBtn" class="primary-button save-snip__button" title="active">Save</button>
+        <div class="save-snip__buttons">
+            <button id="saveBtn" class="button--primary save-snip__button" title="active">Save</button>
         </div>
         `
         const saveBtn = saveSnip.querySelector('#saveBtn');
@@ -41,6 +41,11 @@ export const addSaveSnipElement = (url?: string, snip?: Snip) => {
 }
 // NOTE: URL is prefilled, so there's no need to begin with a disabled state.
 
+/**
+ * Handles 'save' snip button validation.
+ * Becomes active while there is a valid URL provided.
+ * @param e
+ */
 const validateSaveSnip = (e: Event) => {
     const urlInputValue = (e.target as HTMLInputElement)?.value?.trim();
     const saveBtn = document.getElementById('saveBtn') as HTMLButtonElement;
@@ -70,11 +75,11 @@ const isValidURL = (url: string) => {
 }
 
 export const resetSaveSnipElement = () => {
-    const urlInput = document.getElementById('url') as HTMLInputElement;
-    const runOnPageLoad = document.getElementById('runOnPageLoad') as HTMLInputElement;
+    const urlInput = document.getElementById('url');
+    const runOnPageLoad = document.getElementById('runOnPageLoad');
 
     if (urlInput && runOnPageLoad) {
-        urlInput.value = '';
-        runOnPageLoad.checked = true;
+        (urlInput as HTMLInputElement).value = '';
+        (runOnPageLoad as HTMLInputElement).checked = true;
     }
 }

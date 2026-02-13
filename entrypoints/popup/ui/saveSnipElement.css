@@ -19,7 +19,7 @@
 
 }
 
-.url-info {
+.save-snip__url-info {
     display: flex;
     justify-content: space-between;
 
@@ -30,7 +30,7 @@
     }
 }
 
-.page-load {
+.save-snip__page-load {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -47,7 +47,7 @@
     }
 }
 
-.save-snip__button-container {
+.save-snip__buttons {
     display: flex;
     flex: 1;
     justify-content: end;

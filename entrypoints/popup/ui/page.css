@@ -42,7 +42,7 @@ p, h5 {
     flex-direction: row;
 }
 
-.text-input__title {
+.text-input__label {
     display: flex;
     padding-right: 8px;
     margin: auto;
