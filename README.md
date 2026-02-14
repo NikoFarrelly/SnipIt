@@ -2,7 +2,7 @@
 
 ##### v0.1.0
 
-SnipIt, make web pages afraid again.
+### SnipIt, make web pages afraid again.
 
 Sick of seeing elements on a web page that are annoying? Whether it's because of enshittification, or bad UI. SnipIt
 will remove it. Target an element via text and a CSS selector then SnipIt. Save it and never have to see it again.

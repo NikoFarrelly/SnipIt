@@ -1,8 +1,8 @@
 {
   "name": "snipit",
   "version": "0.1.0",
-  "description": "Browser plugin to snip unwanted DOM elements",
-  "author": "farrelly@thefarrelly.com",
+  "description": "SnipIt makes web pages afraid again. Find and remove DOM elements as you see fit!",
+  "author": "snipit@thefarrelly.com",
   "scripts": {
     "clean": "rm -rf .output",
     "typescript": "tsc --noEmit",
