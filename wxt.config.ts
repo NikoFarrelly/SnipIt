@@ -12,5 +12,12 @@ export default defineConfig({
       },
     },
     permissions: ["storage", "tabs", "scripting"],
+    browser_specific_settings: {
+      gecko: {
+        data_collection_permissions: {
+          required: ["none"]
+        }
+      }
+    },
   },
 });
