@@ -11,7 +11,7 @@ export default defineConfig({
         },
       },
     },
-    permissions: ["storage", "tabs", "scripting"],
+    permissions: ["storage", "tabs"],
     browser_specific_settings: {
       gecko: {
         data_collection_permissions: {
