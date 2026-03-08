@@ -7,5 +7,11 @@ export default defineBackground({
         return { success: true, tab: sender.tab };
       return false;
     });
-  },
+
+    browser.commands.onCommand.addListener((command) => {
+      if (command === "open_snipit") {
+        browser.action.openPopup();
+      }
+    });
+  }
 });
