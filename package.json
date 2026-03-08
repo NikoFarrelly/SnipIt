@@ -1,6 +1,6 @@
 {
   "name": "snipit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "SnipIt makes web pages afraid again. Find and remove DOM elements as you see fit!",
   "author": "snipit@thefarrelly.com",
   "scripts": {
